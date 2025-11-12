@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://b344cqbdcqbhy"]
+
+[ext_resource type="Script" uid="uid://b8hbcrnmmaeco" path="res://scenes/game.gd" id="1_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://nklf1vrn55rc" path="res://scenes/player.tscn" id="1_uwrxv"]
+[ext_resource type="Script" uid="uid://7gk5uweie87s" path="res://scenes/player.gd" id="2_yqjtg"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_yqjtg"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_lnu2h")
+
+[node name="Player" parent="." instance=ExtResource("1_uwrxv")]
+script = ExtResource("2_yqjtg")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="LeftEdge" type="Area2D" parent="."]
+position = Vector2(-354, -1)
+metadata/_edit_group_ = true
+
+[node name="LeftEdgeColider" type="CollisionShape2D" parent="LeftEdge"]
+rotation = 1.5707964
+shape = SubResource("WorldBoundaryShape2D_yqjtg")
+debug_color = Color(0, 0.78039217, 0.9137255, 0.58431375)
+
+[node name="TopEdge" type="Area2D" parent="."]
+position = Vector2(-3, -215)
+rotation = 1.5707964
+metadata/_edit_group_ = true
+
+[node name="TopEdgeColider" type="CollisionShape2D" parent="TopEdge"]
+rotation = 1.5707964
+shape = SubResource("WorldBoundaryShape2D_yqjtg")
+debug_color = Color(0, 0.78039217, 0.9137255, 0.58431375)
+
+[node name="RightEdge" type="Area2D" parent="."]
+position = Vector2(358, -6)
+metadata/_edit_group_ = true
+
+[node name="RightEdgeCollider" type="CollisionShape2D" parent="RightEdge"]
+rotation = 4.712389
+shape = SubResource("WorldBoundaryShape2D_yqjtg")
+debug_color = Color(0, 0.78039217, 0.9137255, 0.58431375)
+
+[node name="BottomEdge" type="Area2D" parent="."]
+position = Vector2(3, 213)
+rotation = -1.5707964
+
+[node name="BottomEdgeColider" type="CollisionShape2D" parent="BottomEdge"]
+rotation = 1.5707964
+shape = SubResource("WorldBoundaryShape2D_yqjtg")
+debug_color = Color(0, 0.78039217, 0.9137255, 0.58431375)
+
+[connection signal="body_entered" from="LeftEdge" to="." method="_on_left_edge_body_entered"]
+[connection signal="body_entered" from="TopEdge" to="." method="_on_top_edge_body_entered"]
+[connection signal="body_entered" from="RightEdge" to="." method="_on_right_edge_body_entered"]
+[connection signal="body_entered" from="BottomEdge" to="." method="_on_bottom_edge_body_entered"]
