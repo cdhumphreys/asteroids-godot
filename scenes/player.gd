@@ -1,9 +1,12 @@
 extends CharacterBody2D
 
+class_name Player
+
 const MAX_SPEED = 300
 const ACCELERATION = 5.0
 const ROTATION_SPEED = 0.1
 var speed = 0;
+
 
 func _physics_process(delta):
 	if Input.is_action_pressed("thrust_forward"):

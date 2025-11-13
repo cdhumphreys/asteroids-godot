@@ -22,25 +22,36 @@ func get_size_from_body(body: PhysicsBody2D) -> Vector2:
 	var sizes = body_collision_shape.shape.get_rect().size
 	return sizes
 
-func _on_left_edge_body_entered(body: PhysicsBody2D):
+# Handle player going off screen
+func _on_left_edge_body_entered(body):
+	if body is not PhysicsBody2D:
+		return
+		
 	var sizes = get_size_from_body(body)
 	if sizes != Vector2.ZERO:
 		body.global_position.x = rightEdge.position.x - sizes.x
 
 
-func _on_right_edge_body_entered(body: PhysicsBody2D):
+func _on_right_edge_body_entered(body):
+	if body is not PhysicsBody2D:
+		return
 	var sizes = get_size_from_body(body)
 	if sizes != Vector2.ZERO:
 		body.global_position.x = leftEdge.position.x + sizes.x
 
 
 func _on_top_edge_body_entered(body):
+	if body is not PhysicsBody2D:
+		return
+		
 	var sizes = get_size_from_body(body)
 	if sizes != Vector2.ZERO:
 		body.global_position.y = bottomEdge.position.y - sizes.y
 
 
-func _on_bottom_edge_body_entered(body: Node2D) -> void:
+func _on_bottom_edge_body_entered(body):
+	if body is not PhysicsBody2D:
+		return
 	var sizes = get_size_from_body(body)
 	if sizes != Vector2.ZERO:
 		body.global_position.y = topEdge.position.y + sizes.y

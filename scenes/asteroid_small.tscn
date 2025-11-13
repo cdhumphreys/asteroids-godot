@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2wu417yj1a2e"]
+
+[ext_resource type="Script" uid="uid://dbyqau7wg45hp" path="res://scenes/asteroid_small.gd" id="1_sufu7"]
+[ext_resource type="Texture2D" uid="uid://cpk1tge6gwllt" path="res://assets/meteor_detailedSmall.png" id="2_sufu7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_akfqu"]
+radius = 15.0
+
+[node name="AsteroidSmall" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 3
+mass = 55.0
+gravity_scale = 0.0
+inertia = 51.0
+script = ExtResource("1_sufu7")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_sufu7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_akfqu")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
