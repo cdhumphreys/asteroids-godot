@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://7ygmy5j4e3kq"]
+
+[ext_resource type="Script" uid="uid://1cdpndo7b0tq" path="res://scripts/asteroid.gd" id="1_t4se3"]
+
+[node name="Asteroid" type="Area2D"]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_t4se3")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true

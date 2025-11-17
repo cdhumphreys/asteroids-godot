@@ -1,0 +1,22 @@
+extends Resource
+
+class_name AsteroidStats
+
+@export var size: Enums.AsteroidSize = Enums.AsteroidSize.SMALL
+
+@export var textures: Array[Texture2D] = [AtlasTexture.new()]
+
+@export var collision_shape: CircleShape2D
+
+const MIN_SPEEDS = {
+	Enums.AsteroidSize.SMALL: 150,
+	Enums.AsteroidSize.LARGE: 50,
+}
+
+const MAX_SPEEDS = {
+	Enums.AsteroidSize.SMALL: 300,
+	Enums.AsteroidSize.LARGE: 150,
+}
+
+var MIN_SPEED = MIN_SPEEDS[size]
+var MAX_SPEED = MAX_SPEEDS[size]

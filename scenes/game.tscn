@@ -1,67 +1,25 @@
 [gd_scene load_steps=6 format=3 uid="uid://b344cqbdcqbhy"]
 
-[ext_resource type="Script" uid="uid://b8hbcrnmmaeco" path="res://scenes/game.gd" id="1_lnu2h"]
+[ext_resource type="Script" uid="uid://b8hbcrnmmaeco" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://nklf1vrn55rc" path="res://scenes/player.tscn" id="1_uwrxv"]
-[ext_resource type="PackedScene" uid="uid://d2wu417yj1a2e" path="res://scenes/asteroid_small.tscn" id="4_iywne"]
-[ext_resource type="PackedScene" uid="uid://bsvo2iinxbobr" path="res://scenes/asteroid_large.tscn" id="4_lbhrr"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://7ygmy5j4e3kq" path="res://scenes/asteroid.tscn" id="3_lnu2h"]
+[ext_resource type="Resource" uid="uid://b4u3c2swmtdmb" path="res://resources/asteroids/large_asteroid.tres" id="4_iywne"]
+[ext_resource type="Resource" uid="uid://d0ofjnwsa74jc" path="res://resources/asteroids/small_asteroid.tres" id="5_p57ef"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_lnu2h")
 
 [node name="Player" parent="." instance=ExtResource("1_uwrxv")]
-collision_mask = 5
+position = Vector2(640, 361)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(1.5, 1.5)
+[node name="Asteroid" parent="." instance=ExtResource("3_lnu2h")]
+position = Vector2(142, 125)
+stats = ExtResource("4_iywne")
 
-[node name="AsteroidLarge" parent="." instance=ExtResource("4_lbhrr")]
-position = Vector2(-181, -93)
+[node name="Asteroid2" parent="." instance=ExtResource("3_lnu2h")]
+position = Vector2(288, 394)
+stats = ExtResource("5_p57ef")
 
-[node name="AsteroidLarge2" parent="." instance=ExtResource("4_lbhrr")]
-position = Vector2(172, -103)
-
-[node name="AsteroidLarge3" parent="." instance=ExtResource("4_lbhrr")]
-position = Vector2(-169, 67)
-
-[node name="AsteroidLarge4" parent="." instance=ExtResource("4_lbhrr")]
-position = Vector2(188, 49)
-
-[node name="TopEdge" type="Area2D" parent="."]
-position = Vector2(0, -288)
-rotation = -3.1415927
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TopEdge"]
-shape = SubResource("WorldBoundaryShape2D_lnu2h")
-
-[node name="RightEdge" type="Area2D" parent="."]
-position = Vector2(475, 0)
-rotation = -7.853982
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RightEdge"]
-shape = SubResource("WorldBoundaryShape2D_lnu2h")
-
-[node name="BottomEdge" type="Area2D" parent="."]
-position = Vector2(0, 296)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomEdge"]
-shape = SubResource("WorldBoundaryShape2D_lnu2h")
-
-[node name="LeftEdge" type="Area2D" parent="."]
-position = Vector2(-472, 0)
-rotation = 1.5707964
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftEdge"]
-shape = SubResource("WorldBoundaryShape2D_lnu2h")
-
-[node name="AsteroidSmall" parent="." instance=ExtResource("4_iywne")]
-position = Vector2(-248, 159)
-
-[node name="AsteroidSmall2" parent="." instance=ExtResource("4_iywne")]
-position = Vector2(211, 165)
-
-[connection signal="body_entered" from="TopEdge" to="." method="_on_top_edge_body_entered"]
-[connection signal="body_entered" from="RightEdge" to="." method="_on_right_edge_body_entered"]
-[connection signal="body_entered" from="BottomEdge" to="." method="_on_bottom_edge_body_entered"]
-[connection signal="body_entered" from="LeftEdge" to="." method="_on_left_edge_body_entered"]
+[node name="Asteroid3" parent="." instance=ExtResource("3_lnu2h")]
+position = Vector2(738, 153)
+stats = ExtResource("4_iywne")

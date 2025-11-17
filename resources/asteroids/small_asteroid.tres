@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AsteroidStats" load_steps=7 format=3 uid="uid://d0ofjnwsa74jc"]
+
+[ext_resource type="Shape2D" uid="uid://7ll3thka50hu" path="res://resources/asteroids/collision_shape_small.tres" id="1_6x0fo"]
+[ext_resource type="Script" uid="uid://bc8m1euylr0y7" path="res://classes/asteroid_stats.gd" id="2_n3vmh"]
+[ext_resource type="Texture2D" uid="uid://cpk1tge6gwllt" path="res://assets/asteroids/meteor_detailedSmall.png" id="3_fc42u"]
+[ext_resource type="Texture2D" uid="uid://btyfy53rgpfph" path="res://assets/asteroids/meteor_small.png" id="4_33yxv"]
+[ext_resource type="Texture2D" uid="uid://46kqag02umnm" path="res://assets/asteroids/meteor_squareDetailedSmall.png" id="5_o6yj8"]
+[ext_resource type="Texture2D" uid="uid://cfvu1ciu03foe" path="res://assets/asteroids/meteor_squareSmall.png" id="6_3ns5j"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("2_n3vmh")
+textures = Array[Texture]([ExtResource("3_fc42u"), ExtResource("4_33yxv"), ExtResource("5_o6yj8"), ExtResource("6_3ns5j")])
+collision_shape = ExtResource("1_6x0fo")
+metadata/_custom_type_script = "uid://bc8m1euylr0y7"
