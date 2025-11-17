@@ -4,7 +4,7 @@
 
 [node name="Asteroid" type="Area2D"]
 collision_layer = 2
-collision_mask = 3
+collision_mask = 19
 script = ExtResource("1_t4se3")
 metadata/_edit_group_ = true
 
@@ -13,3 +13,5 @@ unique_name_in_owner = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 unique_name_in_owner = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

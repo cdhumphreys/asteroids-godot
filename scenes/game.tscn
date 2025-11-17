@@ -1,10 +1,42 @@
-[gd_scene load_steps=6 format=3 uid="uid://b344cqbdcqbhy"]
+[gd_scene load_steps=18 format=3 uid="uid://b344cqbdcqbhy"]
 
 [ext_resource type="Script" uid="uid://b8hbcrnmmaeco" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://nklf1vrn55rc" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://7ygmy5j4e3kq" path="res://scenes/asteroid.tscn" id="3_lnu2h"]
-[ext_resource type="Resource" uid="uid://b4u3c2swmtdmb" path="res://resources/asteroids/large_asteroid.tres" id="4_iywne"]
-[ext_resource type="Resource" uid="uid://d0ofjnwsa74jc" path="res://resources/asteroids/small_asteroid.tres" id="5_p57ef"]
+[ext_resource type="Shape2D" uid="uid://201sgl87ebnb" path="res://resources/asteroids/collision_shape_large.tres" id="4_0tnpc"]
+[ext_resource type="Script" uid="uid://bc8m1euylr0y7" path="res://classes/asteroid_stats.gd" id="5_vtaks"]
+[ext_resource type="Texture2D" uid="uid://cmu811soniauc" path="res://assets/asteroids/meteor_detailedLarge.png" id="6_kvpfn"]
+[ext_resource type="Texture2D" uid="uid://1dyymqknwrx8" path="res://assets/asteroids/meteor_large.png" id="7_dinhu"]
+[ext_resource type="Texture2D" uid="uid://cdk2n6tid6arj" path="res://assets/asteroids/meteor_squareDetailedLarge.png" id="8_kvuet"]
+[ext_resource type="Texture2D" uid="uid://decleta02chxa" path="res://assets/asteroids/meteor_squareLarge.png" id="9_trtic"]
+[ext_resource type="Shape2D" uid="uid://7ll3thka50hu" path="res://resources/asteroids/collision_shape_small.tres" id="10_trtic"]
+[ext_resource type="Texture2D" uid="uid://cpk1tge6gwllt" path="res://assets/asteroids/meteor_detailedSmall.png" id="11_ir15t"]
+[ext_resource type="Texture2D" uid="uid://btyfy53rgpfph" path="res://assets/asteroids/meteor_small.png" id="12_ca42v"]
+[ext_resource type="Texture2D" uid="uid://46kqag02umnm" path="res://assets/asteroids/meteor_squareDetailedSmall.png" id="13_rysoc"]
+[ext_resource type="Texture2D" uid="uid://cfvu1ciu03foe" path="res://assets/asteroids/meteor_squareSmall.png" id="14_ssvqc"]
+
+[sub_resource type="Resource" id="Resource_trtic"]
+resource_local_to_scene = true
+script = ExtResource("5_vtaks")
+size = 1
+textures = Array[Texture]([ExtResource("6_kvpfn"), ExtResource("7_dinhu"), ExtResource("8_kvuet"), ExtResource("9_trtic")])
+collision_shape = ExtResource("4_0tnpc")
+metadata/_custom_type_script = "uid://bc8m1euylr0y7"
+
+[sub_resource type="Resource" id="Resource_ir15t"]
+resource_local_to_scene = true
+script = ExtResource("5_vtaks")
+textures = Array[Texture]([ExtResource("11_ir15t"), ExtResource("12_ca42v"), ExtResource("13_rysoc"), ExtResource("14_ssvqc")])
+collision_shape = ExtResource("10_trtic")
+metadata/_custom_type_script = "uid://bc8m1euylr0y7"
+
+[sub_resource type="Resource" id="Resource_ca42v"]
+resource_local_to_scene = true
+script = ExtResource("5_vtaks")
+size = 1
+textures = Array[Texture]([ExtResource("6_kvpfn"), ExtResource("7_dinhu"), ExtResource("8_kvuet"), ExtResource("9_trtic")])
+collision_shape = ExtResource("4_0tnpc")
+metadata/_custom_type_script = "uid://bc8m1euylr0y7"
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_lnu2h")
@@ -14,12 +46,12 @@ position = Vector2(640, 361)
 
 [node name="Asteroid" parent="." instance=ExtResource("3_lnu2h")]
 position = Vector2(142, 125)
-stats = ExtResource("4_iywne")
+stats = SubResource("Resource_trtic")
 
 [node name="Asteroid2" parent="." instance=ExtResource("3_lnu2h")]
 position = Vector2(288, 394)
-stats = ExtResource("5_p57ef")
+stats = SubResource("Resource_ir15t")
 
 [node name="Asteroid3" parent="." instance=ExtResource("3_lnu2h")]
 position = Vector2(738, 153)
-stats = ExtResource("4_iywne")
+stats = SubResource("Resource_ca42v")
