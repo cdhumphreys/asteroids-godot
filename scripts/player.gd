@@ -2,18 +2,26 @@ extends CharacterBody2D
 
 class_name Player
 
+signal on_hit
+
 const MAX_SPEED = 500
 const ACCELERATION = 8.0
 const ROTATION_SPEED = 5.0
 var speed = 0;
+
 var input_vector: Vector2
 var bullet_scene : PackedScene = preload("res://scenes/bullet.tscn")
 
-@export var shoot_cooldown: float = 1.0
 @onready var gun: Marker2D = $%Marker2D
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
+@export var shoot_cooldown: float = 1.0
 var can_shoot := true;
 
+var start_position: Vector2
+
+func _ready() -> void:
+	start_position = global_position
 
 func _physics_process(delta:float):
 	_handle_movement(delta)
@@ -24,8 +32,6 @@ func _handle_shoot():
 		_try_shoot()
 	
 func _handle_movement(delta:float):
-	
-	
 	input_vector = Vector2(0, Input.get_axis("thrust_forward", "thrust_backward"))
 
 	if Input.is_action_pressed("rotate_clockwise"):
@@ -52,3 +58,15 @@ func _try_shoot():
 	
 	await get_tree().create_timer(shoot_cooldown).timeout
 	can_shoot = true
+	
+func hit():
+	hide()
+	$CollisionShape2D.set_deferred("disabled", true)
+	on_hit.emit()
+
+func reset():
+	position = start_position
+	$CollisionShape2D.disabled = false
+	show()
+	
+	

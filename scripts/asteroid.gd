@@ -14,14 +14,11 @@ var movement_vector: Vector2 = Vector2(0, -1)
 var small_asteroid_scene: PackedScene = preload("res://scenes/asteroid.tscn")
 var small_asteroid_stat: AsteroidStats = preload("res://resources/asteroids/small_asteroid.tres")
 
+
 func _ready() -> void:
 	speed = randf_range(stats.MIN_SPEED, stats.MAX_SPEED)
-	rotation = randf_range(0, 2*PI)
 	
 	sprite.texture = stats.textures.pick_random()
-	collision_shape.shape = stats.collision_shape
-		
-	# Pick one of the asteroid PNGs
 	collision_shape.shape = stats.collision_shape
 
 func _physics_process(delta: float) -> void:
@@ -39,6 +36,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_hit_by_bullet():
+	EventBus.asteroid_hit.emit(stats.size)
+	
 	if stats.size == Enums.AsteroidSize.SMALL:
 		queue_free()
 	elif stats.size == Enums.AsteroidSize.LARGE:
@@ -52,10 +51,15 @@ func _split_into_smaller():
 		new_asteroid.stats = small_asteroid_stat
 		root_node.add_child(new_asteroid)
 		new_asteroid.global_position = global_position
+		new_asteroid.rotation = rotation + randf_range(-PI/4, PI/4)
 	
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is Bullet:
 		area.queue_free()
 		_on_hit_by_bullet()
-		
+	
+
+func _on_body_entered(body: Node2D) -> void:
+	if body is Player:
+		body.hit()

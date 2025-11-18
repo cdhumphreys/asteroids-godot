@@ -15,7 +15,7 @@ const MIN_SPEEDS = {
 
 const MAX_SPEEDS = {
 	Enums.AsteroidSize.SMALL: 300,
-	Enums.AsteroidSize.LARGE: 150,
+	Enums.AsteroidSize.LARGE: 100,
 }
 
 var MIN_SPEED = MIN_SPEEDS[size]

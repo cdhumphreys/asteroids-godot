@@ -1,61 +1,72 @@
 extends Node2D
 
-@onready var leftEdge = $LeftEdge;
-@onready var rightEdge = $RightEdge;
-@onready var topEdge = $TopEdge;
-@onready var bottomEdge = $BottomEdge;
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+@onready var asteroid_spawn_timer: Timer = $AsteroidSpawnTimer
+@onready var player: Player = $Player
+@onready var asteroid_spawn_location: PathFollow2D = $AsteroidSpawnBoundary/AsteroidSpawnLocation
+
+var asteroid_scene: PackedScene = preload("res://scenes/asteroid.tscn")
+
+@export var asteroid_stats: Array[AsteroidStats]
+
+var score = 0
+var asteroid_sizes = [Enums.AsteroidSize.SMALL, Enums.AsteroidSize.LARGE]
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+@export_range (1, 100) var MAX_ASTEROIDS: int
+
+var active_asteroids = 0
 
 
-func get_size_from_body(body: PhysicsBody2D) -> Vector2:
-	var body_collision_shape: CollisionShape2D = body.get_node_or_null("CollisionShape2D")
-	if !body_collision_shape:
-		return Vector2.ZERO
+func _ready() -> void:
+	EventBus.asteroid_hit.connect(_on_asteroid_destroyed)
 
-	var sizes = body_collision_shape.shape.get_rect().size
-	return sizes
+func _game_over() -> void:
+	print("game over")
+	get_tree().paused = true
+	asteroid_spawn_timer.stop()
+	
+func _new_game() -> void:
+	print("starting new game")
+	score = 0
+	asteroid_spawn_timer.start()
+	player.reset()
+	
 
-# BODIES - Mostly player
-func _on_left_edge_body_entered(body):
-	var sizes = get_size_from_body(body)
-	if sizes != Vector2.ZERO:
-		body.global_position.x = rightEdge.position.x - sizes.x
+func _get_random_asteroid_stat() -> AsteroidStats:
+	var res: AsteroidStats = asteroid_stats.pick_random()
+	
+	return res.duplicate()
+			
 
+func _on_asteroid_spawn_timer_timeout() -> void:
+	if active_asteroids == MAX_ASTEROIDS:
+		return
+#	Create new asteroid & set stats
+	var asteroid: Asteroid = asteroid_scene.instantiate()
+	var asteroid_stat: AsteroidStats = _get_random_asteroid_stat()
+	asteroid.stats = asteroid_stat
 
-func _on_right_edge_body_entered(body):
-	var sizes = get_size_from_body(body)
-	if sizes != Vector2.ZERO:
-		body.global_position.x = leftEdge.position.x + sizes.x
+	# Get random point along boundary
+	asteroid_spawn_location.	progress_ratio = randf()
+	asteroid.global_position = asteroid_spawn_location.position
+	
+	# Perpendicular to "spawn" vector - points inwards, not sure why PI and not PI/2
+	# Must be something up with the asteroid rotation?
+	var direction = asteroid_spawn_location.rotation + PI
+	
+	# Add random offset 
+	direction += randf_range(-PI/4, PI/4)
+	
+	# Set direction
+	asteroid.rotate(direction)
+	
+	add_child(asteroid)
+	active_asteroids += 1
+	
+func _on_asteroid_destroyed(asteroid_size: Enums.AsteroidSize):
+	if asteroid_size == Enums.AsteroidSize.SMALL:
+		active_asteroids -= 1
+	elif asteroid_size == Enums.AsteroidSize.LARGE:
+		active_asteroids += 1
 
-
-func _on_top_edge_body_entered(body):
-	var sizes = get_size_from_body(body)
-	if sizes != Vector2.ZERO:
-		body.global_position.y = bottomEdge.position.y - sizes.y
-
-
-func _on_bottom_edge_body_entered(body):
-	var sizes = get_size_from_body(body)
-	if sizes != Vector2.ZERO:
-		body.global_position.y = topEdge.position.y + sizes.y
-
-
-# AREAS
-func _on_left_edge_area_entered(area: Area2D) -> void:
-	area.global_position.x = rightEdge.global_position.x
-
-func _on_right_edge_area_entered(area: Area2D) -> void:
-	area.global_position.x = leftEdge.global_position.x
-
-func _on_top_edge_area_entered(area: Area2D) -> void:
-	area.global_position.y = bottomEdge.global_position.y
-
-func _on_bottom_edge_area_entered(area: Area2D) -> void:
-	area.global_position.y = topEdge.global_position.y
+	print("Active asteroids:", active_asteroids)

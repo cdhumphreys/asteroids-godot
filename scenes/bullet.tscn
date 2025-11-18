@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://2q20bdghejhb" path="res://scripts/bullet.gd" id="1_mkf8s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tah1u"]
-size = Vector2(16, 26)
+size = Vector2(25.00007, 37.500107)
 
 [node name="Bullet" type="Area2D"]
 collision_layer = 16
@@ -12,11 +12,12 @@ script = ExtResource("1_mkf8s")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 position = Vector2(0, 4.7683716e-07)
-scale = Vector2(0.2, 0.288)
-polygon = PackedVector2Array(8, -8.999999, 8, 8.999999, -8, 8.999999, -8, -8.999999)
+scale = Vector2(0.36810747, 0.40640986)
+polygon = PackedVector2Array(10.866391, -14.763421, 10.866391, 14.763419, -10.866391, 14.763419, -10.866391, -14.763421)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(0.2, 0.2)
+position = Vector2(1.4901161e-07, -1.4901161e-07)
+scale = Vector2(0.3199991, 0.3199991)
 shape = SubResource("RectangleShape2D_tah1u")
 
 [node name="Lifetime" type="Timer" parent="."]

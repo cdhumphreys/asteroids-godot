@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Enums="*res://globals/enums.gd"
 Utils="*res://globals/utils.gd"
+EventBus="*res://globals/event_bus.gd"
 
 [display]
 
