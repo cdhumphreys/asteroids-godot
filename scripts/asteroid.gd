@@ -36,7 +36,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_hit_by_bullet():
-	EventBus.asteroid_hit.emit(stats.size)
+	EventBus.asteroid_hit.emit(self)
 	
 	if stats.size == Enums.AsteroidSize.SMALL:
 		queue_free()

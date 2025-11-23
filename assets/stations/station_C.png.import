@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://csgy17gjyr57q"
-path="res://.godot/imported/effect_purple.png-911964de300b12eedf8f4712c94a601a.ctex"
+uid="uid://dhmah3piw67nq"
+path="res://.godot/imported/station_C.png-b2bc34292c4b2e3045b6d0aadfdba778.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/effect_purple.png"
-dest_files=["res://.godot/imported/effect_purple.png-911964de300b12eedf8f4712c94a601a.ctex"]
+source_file="res://assets/stations/station_C.png"
+dest_files=["res://.godot/imported/station_C.png-b2bc34292c4b2e3045b6d0aadfdba778.ctex"]
 
 [params]
 

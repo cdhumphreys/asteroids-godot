@@ -2,11 +2,14 @@ extends Resource
 
 class_name AsteroidStats
 
-@export var size: Enums.AsteroidSize = Enums.AsteroidSize.SMALL
-
 @export var textures: Array[Texture2D] = [AtlasTexture.new()]
 
+@export var size: Enums.AsteroidSize = Enums.AsteroidSize.SMALL
+
 @export var collision_shape: CircleShape2D
+
+@export var score_value: int
+
 
 const MIN_SPEEDS = {
 	Enums.AsteroidSize.SMALL: 150,

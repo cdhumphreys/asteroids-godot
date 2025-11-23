@@ -52,8 +52,8 @@ func _try_shoot():
 
 	can_shoot = false
 	var b = bullet_scene.instantiate()
-	var game_world = get_parent()
-	game_world.add_child(b)
+	var game_world: Game = get_parent()
+	game_world.bullets_container.add_child(b)
 	b.transform = gun.global_transform
 	
 	await get_tree().create_timer(shoot_cooldown).timeout
@@ -66,6 +66,8 @@ func hit():
 
 func reset():
 	position = start_position
+	velocity = Vector2.ZERO
+	rotation = 0
 	$CollisionShape2D.disabled = false
 	show()
 	

@@ -1,2 +1,6 @@
 extends Node
 signal asteroid_hit
+
+signal start_button_pressed
+signal continue_button_pressed
+signal new_game_button_pressed

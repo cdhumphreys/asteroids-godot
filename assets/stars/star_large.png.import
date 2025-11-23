@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dklkvsxfrn34a"
-path="res://.godot/imported/icon_crossLarge.png-a9d5502cec172476dd8474bee595c1ef.ctex"
+uid="uid://bbw0fag84c5u3"
+path="res://.godot/imported/star_large.png-d624ef7dec72dd5a761582200410f9b3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icon_crossLarge.png"
-dest_files=["res://.godot/imported/icon_crossLarge.png-a9d5502cec172476dd8474bee595c1ef.ctex"]
+source_file="res://assets/stars/star_large.png"
+dest_files=["res://.godot/imported/star_large.png-d624ef7dec72dd5a761582200410f9b3.ctex"]
 
 [params]
 

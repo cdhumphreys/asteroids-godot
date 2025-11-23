@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnj2nmt8lbe3k"]
+
+[ext_resource type="Script" uid="uid://coitc0bdv2ido" path="res://scripts/popup_handler.gd" id="1_osfq7"]
+
+[node name="PopupHandler" type="Node"]
+script = ExtResource("1_osfq7")

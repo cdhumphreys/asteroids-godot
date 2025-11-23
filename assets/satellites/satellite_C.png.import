@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cspu0ld0ib182"
-path="res://.godot/imported/icon_exclamationLarge.png-d9dcfd917f1748c50f942dcdf667b0a0.ctex"
+uid="uid://dn1d4mia024se"
+path="res://.godot/imported/satellite_C.png-4530553869dc8de717646b7abb0d4dbc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icon_exclamationLarge.png"
-dest_files=["res://.godot/imported/icon_exclamationLarge.png-d9dcfd917f1748c50f942dcdf667b0a0.ctex"]
+source_file="res://assets/satellites/satellite_C.png"
+dest_files=["res://.godot/imported/satellite_C.png-4530553869dc8de717646b7abb0d4dbc.ctex"]
 
 [params]
 

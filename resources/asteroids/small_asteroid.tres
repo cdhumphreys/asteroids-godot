@@ -12,4 +12,5 @@ resource_local_to_scene = true
 script = ExtResource("2_n3vmh")
 textures = Array[Texture]([ExtResource("3_fc42u"), ExtResource("4_33yxv"), ExtResource("5_o6yj8"), ExtResource("6_3ns5j")])
 collision_shape = ExtResource("1_6x0fo")
+score_value = 5
 metadata/_custom_type_script = "uid://bc8m1euylr0y7"

@@ -10,7 +10,7 @@
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_8ghef")
-size = 1
 textures = Array[Texture]([ExtResource("2_wynlp"), ExtResource("3_086em"), ExtResource("4_64bxu"), ExtResource("5_k0guq")])
+size = 1
 collision_shape = ExtResource("1_086em")
 metadata/_custom_type_script = "uid://bc8m1euylr0y7"

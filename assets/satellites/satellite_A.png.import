@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dn1d4mia024se"
-path="res://.godot/imported/satellite_C.png-77d3be932cdd7395e07aec26471958f1.ctex"
+uid="uid://c4cfch5fojgng"
+path="res://.godot/imported/satellite_A.png-ff78e70e8836e820fcba2a4ef18c3a87.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/satellite_C.png"
-dest_files=["res://.godot/imported/satellite_C.png-77d3be932cdd7395e07aec26471958f1.ctex"]
+source_file="res://assets/satellites/satellite_A.png"
+dest_files=["res://.godot/imported/satellite_A.png-ff78e70e8836e820fcba2a4ef18c3a87.ctex"]
 
 [params]
 

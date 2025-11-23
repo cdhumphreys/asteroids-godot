@@ -20,4 +20,11 @@ func keep_body_in_screen_bounds(pos: Vector2, screen_rect: Rect2, width = 0, hei
 		pos.x = screen_width + width
 	
 	return pos
+
+func save_game():
+	print("saving...")
+	pass
 	
+func load_game():
+	print("loading...")
+	pass
