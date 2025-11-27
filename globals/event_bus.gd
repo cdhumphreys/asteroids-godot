@@ -1,4 +1,5 @@
 extends Node
+
 signal asteroid_hit
 
 signal start_button_pressed

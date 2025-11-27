@@ -6,16 +6,12 @@ class_name Game
 @export_range (1, 100) var MAX_ASTEROIDS: int
 @export var lives:int = 3 
 
-
 var asteroid_scene: PackedScene = preload("res://scenes/asteroid.tscn")
-
 var score = 0
-
 var asteroid_sizes = Enums.AsteroidSize.keys()
-
 var active_asteroids = 0
 
-
+var active_save_game: SaveGame
 
 @onready var asteroid_spawn_timer: Timer = $AsteroidSpawnTimer
 @onready var player: Player = $Player
@@ -31,12 +27,16 @@ var active_asteroids = 0
 @onready var asteroids_container: Node = %AsteroidsContainer
 @onready var bullets_container: Node = %BulletsContainer
 
+
 func _ready() -> void:
 	get_tree().paused = true
 	EventBus.asteroid_hit.connect(_on_asteroid_destroyed)
 	EventBus.start_button_pressed.connect(_on_start_button_pressed)
 	EventBus.continue_button_pressed.connect(_on_continue_button_pressed)
 	EventBus.new_game_button_pressed.connect(_new_game)
+	
+	active_save_game = Utils.load_game()
+
 	main_menu.on_show()
 	
 
@@ -62,13 +62,14 @@ func _remove_asteroids():
 func _game_over() -> void:
 	print("game over")
 	get_tree().paused = true
+	
 	death_screen.show()
 	death_screen.on_show()
 	
 	_remove_bullets()
 	_remove_asteroids()
 
-	Utils.save_game()
+	_save_game()
 	
 func _new_game() -> void:
 	print("starting new game")
@@ -138,3 +139,38 @@ func _on_start_button_pressed():
 func _on_continue_button_pressed():
 	get_tree().paused = false
 	pause_menu.hide()
+
+func _save_game():
+	var is_new_high_score := _check_for_new_high_score()
+	if !is_new_high_score:
+		return
+	
+	# Get username from entry, set up new HighScore
+	var username = "";
+	var new_high_score_entry = HighScore.new()
+	new_high_score_entry.score = score
+	new_high_score_entry.username = username
+	
+	_add_new_high_score(new_high_score_entry)
+	
+	
+	Utils.save_game(active_save_game)
+
+func _add_new_high_score(new_high_score_entry: HighScore):
+	# Add to array & sort by score, if more than 10 entries then remove last one
+	active_save_game.high_scores.append(new_high_score_entry)
+	active_save_game.high_scores.sort_custom(func(a: HighScore, b: HighScore):
+		return a.score > b.score)
+	if len(active_save_game.high_scores) > 10:
+		active_save_game.high_scores.pop_back()
+	
+
+func _check_for_new_high_score() -> bool:	
+	if len(active_save_game.high_scores) < 10:
+		return true
+	
+	for entry in active_save_game.high_scores:
+		if score > entry.score:
+			return true
+			
+	return false
