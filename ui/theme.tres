@@ -43,3 +43,7 @@ MenuButtonsContainer/base_type = &"VBoxContainer"
 MenuButtonsContainer/constants/separation = 10
 Panel/styles/panel = SubResource("StyleBoxFlat_jf26r")
 PanelContainer/styles/panel = SubResource("StyleBoxEmpty_rqugq")
+ScoreRow/base_type = &"HBoxContainer"
+ScoreRow/constants/separation = 20
+ScoreRowLabel/base_type = &"Label"
+ScoreRowLabel/font_sizes/font_size = 48

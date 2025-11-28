@@ -17,6 +17,7 @@ var active_save_game: SaveGame
 @onready var player: Player = $Player
 @onready var asteroid_spawn_location: PathFollow2D = $AsteroidSpawnBoundary/AsteroidSpawnLocation
 
+@onready var high_scores_screen: HighScores = %HighScores
 
 @onready var score_label: ScoreLabel = %Score
 
@@ -38,7 +39,7 @@ func _ready() -> void:
 	active_save_game = Utils.load_game()
 
 	main_menu.on_show()
-	
+
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
@@ -49,33 +50,42 @@ func _input(event: InputEvent) -> void:
 			get_tree().paused = true
 			pause_menu.show()
 			pause_menu.on_show()
-			
+
 
 func _remove_bullets():
 	for child in bullets_container.get_children():
 		child.queue_free()
 
+
 func _remove_asteroids():
 	for child in asteroids_container.get_children():
 		child.queue_free()
+
 
 func _game_over() -> void:
 	print("game over")
 	get_tree().paused = true
 	
-	death_screen.show()
-	death_screen.on_show()
+	
+	
+	#death_screen.show()
+	#death_screen.on_show()
+	_save_game()
+	
+	high_scores_screen.show_score_list(active_save_game.high_scores)
+	high_scores_screen.show()
 	
 	_remove_bullets()
 	_remove_asteroids()
 
-	_save_game()
-	
+
+
 func _new_game() -> void:
 	print("starting new game")
 	_reset()
 	asteroid_spawn_timer.start()
 	get_tree().paused = false
+
 
 func _reset():
 	main_menu.hide()
@@ -91,6 +101,7 @@ func _reset():
 	score_label.update_score(score)
 	
 	player.reset()
+
 
 func _get_random_asteroid_stat() -> AsteroidStats:
 	var res: AsteroidStats = asteroid_stats.pick_random()
@@ -122,7 +133,8 @@ func _on_asteroid_spawn_timer_timeout() -> void:
 	
 	asteroids_container.add_child(asteroid)
 	active_asteroids += 1
-	
+
+
 func _on_asteroid_destroyed(asteroid: Asteroid):
 	var asteroid_size = asteroid.stats.size
 	if asteroid_size == Enums.AsteroidSize.SMALL:
@@ -133,18 +145,21 @@ func _on_asteroid_destroyed(asteroid: Asteroid):
 	score += asteroid.stats.score_value
 	score_label.update_score(score)
 
+
 func _on_start_button_pressed():
 	_new_game()
+
 
 func _on_continue_button_pressed():
 	get_tree().paused = false
 	pause_menu.hide()
 
+
 func _save_game():
 	var is_new_high_score := _check_for_new_high_score()
 	if !is_new_high_score:
 		return
-	
+
 	# Get username from entry, set up new HighScore
 	var username = "";
 	var new_high_score_entry = HighScore.new()
@@ -152,7 +167,6 @@ func _save_game():
 	new_high_score_entry.username = username
 	
 	_add_new_high_score(new_high_score_entry)
-	
 	
 	Utils.save_game(active_save_game)
 
