@@ -1,65 +1,53 @@
 [gd_scene load_steps=3 format=3 uid="uid://cp1ixehuvgyda"]
 
-[ext_resource type="Script" uid="uid://dgdxawri182ee" path="res://scenes/death_screen.gd" id="2_dwo6e"]
+[ext_resource type="Script" uid="uid://dgdxawri182ee" path="res://scripts/death_screen.gd" id="2_dwo6e"]
 [ext_resource type="PackedScene" uid="uid://cnj2nmt8lbe3k" path="res://scenes/popup_handler.tscn" id="3_mqh5l"]
 
 [node name="DeathScreen" type="CanvasLayer"]
 process_mode = 2
 script = ExtResource("2_dwo6e")
 
-[node name="Foreground" type="PanelContainer" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -433.5
-offset_top = -259.0
-offset_right = 433.5
-offset_bottom = 259.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Panel" type="Panel" parent="Foreground"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Foreground"]
-layout_mode = 2
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
 theme_override_constants/margin_left = 150
 theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 150
 theme_override_constants/margin_bottom = 100
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Foreground/MarginContainer"]
+[node name="Panel" type="Panel" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 50
 alignment = 1
 
-[node name="TitleLabel" type="Label" parent="Foreground/MarginContainer/VBoxContainer"]
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"HeaderMedium"
 text = "Game Over"
 horizontal_alignment = 1
 
-[node name="ButtonsVBoxContainer" type="VBoxContainer" parent="Foreground/MarginContainer/VBoxContainer"]
+[node name="ButtonsVBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"MenuButtonsContainer"
 alignment = 1
 
-[node name="NewGameButton" type="Button" parent="Foreground/MarginContainer/VBoxContainer/ButtonsVBoxContainer"]
+[node name="NewGameButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonsVBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Restart"
 
-[node name="QuitButton" type="Button" parent="Foreground/MarginContainer/VBoxContainer/ButtonsVBoxContainer"]
+[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonsVBoxContainer"]
 layout_mode = 2
 text = "Quit"
 
-[node name="PopupHandler" parent="." node_paths=PackedStringArray("initial_focus") instance=ExtResource("3_mqh5l")]
+[node name="PopupHandler" parent="." node_paths=PackedStringArray("initial_focus_element") instance=ExtResource("3_mqh5l")]
 unique_name_in_owner = true
-initial_focus = NodePath("../Foreground/MarginContainer/VBoxContainer/ButtonsVBoxContainer/NewGameButton")
+initial_focus_element = NodePath("../MarginContainer/VBoxContainer/ButtonsVBoxContainer/NewGameButton")
 
-[connection signal="pressed" from="Foreground/MarginContainer/VBoxContainer/ButtonsVBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
-[connection signal="pressed" from="Foreground/MarginContainer/VBoxContainer/ButtonsVBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonsVBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonsVBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

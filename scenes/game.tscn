@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b344cqbdcqbhy"]
+[gd_scene load_steps=13 format=3 uid="uid://b344cqbdcqbhy"]
 
 [ext_resource type="Script" uid="uid://b8hbcrnmmaeco" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://nklf1vrn55rc" path="res://scenes/player.tscn" id="1_uwrxv"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://djxb6v4ajhypy" path="res://scenes/main_menu.tscn" id="7_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://bul7gadgy37p1" path="res://scenes/pause_menu.tscn" id="8_gee14"]
 [ext_resource type="PackedScene" uid="uid://dp1vo74r3a1lr" path="res://scenes/high_scores.tscn" id="9_vtaks"]
+[ext_resource type="PackedScene" uid="uid://c3ltlngvfgv0y" path="res://scenes/enter_name_menu.tscn" id="10_kvpfn"]
 
 [sub_resource type="Curve2D" id="Curve2D_yqjtg"]
 _data = {
@@ -39,6 +40,10 @@ unique_name_in_owner = true
 visible = false
 
 [node name="HighScores" parent="." instance=ExtResource("9_vtaks")]
+unique_name_in_owner = true
+visible = false
+
+[node name="EnterNameMenu" parent="." instance=ExtResource("10_kvpfn")]
 unique_name_in_owner = true
 visible = false
 

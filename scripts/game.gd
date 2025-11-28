@@ -8,6 +8,7 @@ class_name Game
 
 var asteroid_scene: PackedScene = preload("res://scenes/asteroid.tscn")
 var score = 0
+var username = "";
 var asteroid_sizes = Enums.AsteroidSize.keys()
 var active_asteroids = 0
 
@@ -24,6 +25,7 @@ var active_save_game: SaveGame
 @onready var pause_menu: PauseMenu = %PauseMenu
 @onready var main_menu: MainMenu = %MainMenu
 @onready var death_screen: DeathScreen = %DeathScreen
+@onready var enter_name_menu: EnterNameMenu = %EnterNameMenu
 
 @onready var asteroids_container: Node = %AsteroidsContainer
 @onready var bullets_container: Node = %BulletsContainer
@@ -36,10 +38,15 @@ func _ready() -> void:
 	EventBus.continue_button_pressed.connect(_on_continue_button_pressed)
 	EventBus.new_game_button_pressed.connect(_new_game)
 	
+	enter_name_menu.on_name_submitted.connect(_on_user_enters_username)
+	
 	active_save_game = Utils.load_game()
-
+	
 	main_menu.on_show()
 
+
+func _on_user_enters_username(new_text: String):
+	username = new_text
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
@@ -59,25 +66,35 @@ func _remove_bullets():
 
 func _remove_asteroids():
 	for child in asteroids_container.get_children():
+		asteroids_container.remove_child(child)
 		child.queue_free()
 
 
 func _game_over() -> void:
 	print("game over")
-	get_tree().paused = true
-	
-	
-	
-	#death_screen.show()
-	#death_screen.on_show()
-	_save_game()
-	
-	high_scores_screen.show_score_list(active_save_game.high_scores)
-	high_scores_screen.show()
-	
 	_remove_bullets()
 	_remove_asteroids()
 
+	get_tree().paused = true
+	
+	# If new high score (anywhere in top 10) then show name entry screen
+	if _check_for_new_high_score():
+		enter_name_menu.show()
+		enter_name_menu.on_show()
+		await enter_name_menu.on_name_submitted
+	
+	_save_game()
+	
+#	Show high scores
+	high_scores_screen.show()
+	high_scores_screen.show_score_list(active_save_game.high_scores)
+	high_scores_screen.on_show()
+	
+	await high_scores_screen.on_close
+	
+#	Show death screen
+	death_screen.show()
+	death_screen.on_show()
 
 
 func _new_game() -> void:
@@ -98,6 +115,7 @@ func _reset():
 		
 	active_asteroids = 0
 	score = 0
+	username = ""
 	score_label.update_score(score)
 	
 	player.reset()
@@ -161,7 +179,6 @@ func _save_game():
 		return
 
 	# Get username from entry, set up new HighScore
-	var username = "";
 	var new_high_score_entry = HighScore.new()
 	new_high_score_entry.score = score
 	new_high_score_entry.username = username
@@ -171,10 +188,12 @@ func _save_game():
 	Utils.save_game(active_save_game)
 
 func _add_new_high_score(new_high_score_entry: HighScore):
-	# Add to array & sort by score, if more than 10 entries then remove last one
+	# Add to array & sort by score
 	active_save_game.high_scores.append(new_high_score_entry)
 	active_save_game.high_scores.sort_custom(func(a: HighScore, b: HighScore):
 		return a.score > b.score)
+	
+	# if more than 10 entries then remove last one
 	if len(active_save_game.high_scores) > 10:
 		active_save_game.high_scores.pop_back()
 	

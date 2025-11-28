@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3ltlngvfgv0y"]
+
+[ext_resource type="Script" uid="uid://bcbba7u73h6ap" path="res://scripts/enter_name_menu.gd" id="1_vgkgu"]
+[ext_resource type="PackedScene" uid="uid://cnj2nmt8lbe3k" path="res://scenes/popup_handler.tscn" id="2_ps0vl"]
+
+[sub_resource type="FontVariation" id="FontVariation_vtaks"]
+spacing_glyph = 40
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vtaks"]
+
+[node name="EnterNameMenu" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_vgkgu")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="LineEdit" type="LineEdit" parent="."]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/caret_width = 2
+theme_override_fonts/font = SubResource("FontVariation_vtaks")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vtaks")
+placeholder_text = "____"
+alignment = 1
+max_length = 10
+expand_to_text_length = true
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+caret_blink = true
+caret_force_displayed = true
+
+[node name="PopupHandler" parent="." instance=ExtResource("2_ps0vl")]
+unique_name_in_owner = true
+
+[connection signal="text_submitted" from="LineEdit" to="." method="_on_line_edit_text_submitted"]

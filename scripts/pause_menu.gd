@@ -7,7 +7,7 @@ class_name PauseMenu
 
 
 func on_show():
-	popup_handler.focus_first_button()
+	popup_handler.focus_first_element()
 
 
 func _on_quit_button_pressed() -> void:
