@@ -45,11 +45,11 @@ func _on_hit_by_bullet():
 		queue_free()
 
 func _split_into_smaller():
-	var root_node = get_tree().root
+	var parent_node = get_parent()
 	for i in range(2):
 		var new_asteroid: Asteroid = small_asteroid_scene.instantiate()
 		new_asteroid.stats = small_asteroid_stat
-		root_node.add_child(new_asteroid)
+		parent_node.add_child(new_asteroid)
 		new_asteroid.global_position = global_position
 		new_asteroid.rotation = rotation + randf_range(-PI/4, PI/4)
 	
