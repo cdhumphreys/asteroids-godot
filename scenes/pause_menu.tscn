@@ -58,9 +58,9 @@ text = "Continue
 layout_mode = 2
 text = "Quit"
 
-[node name="PopupHandler" parent="." node_paths=PackedStringArray("initial_focus") instance=ExtResource("3_kukqi")]
+[node name="PopupHandler" parent="." node_paths=PackedStringArray("initial_focus_element") instance=ExtResource("3_kukqi")]
 unique_name_in_owner = true
-initial_focus = NodePath("../Foreground/MarginContainer/VBoxContainer/ButtonsVBoxContainer/ContinueButton")
+initial_focus_element = NodePath("../Foreground/MarginContainer/VBoxContainer/ButtonsVBoxContainer/ContinueButton")
 
 [connection signal="pressed" from="Foreground/MarginContainer/VBoxContainer/ButtonsVBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="Foreground/MarginContainer/VBoxContainer/ButtonsVBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
