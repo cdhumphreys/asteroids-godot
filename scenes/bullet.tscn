@@ -1,22 +1,51 @@
-[gd_scene load_steps=3 format=3 uid="uid://dmlk1t3ynpejw"]
+[gd_scene load_steps=10 format=3 uid="uid://dmlk1t3ynpejw"]
 
 [ext_resource type="Script" uid="uid://2q20bdghejhb" path="res://scripts/bullet.gd" id="1_mkf8s"]
 
+[sub_resource type="Gradient" id="Gradient_mkf8s"]
+colors = PackedColorArray(0, 0, 1, 1, 0, 1, 1, 1)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tah1u"]
-size = Vector2(25.00007, 37.500107)
+size = Vector2(31.250088, 81.25023)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_y25gk"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_y25gk"]
+colors = PackedColorArray(0, 0, 1, 1, 0, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_l5glv"]
+gradient = SubResource("Gradient_y25gk")
+width = 2
+use_hdr = true
+
+[sub_resource type="Curve" id="Curve_mkf8s"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.06017983), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_y25gk"]
+curve = SubResource("Curve_mkf8s")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_l5glv"]
+particle_flag_disable_z = true
+initial_velocity_min = -1.0
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -2.2351742e-06
+linear_accel_max = 99.99999
+scale_min = 0.0
+scale_max = 4.0
+scale_curve = SubResource("CurveTexture_y25gk")
+color_ramp = SubResource("GradientTexture1D_l5glv")
 
 [node name="Bullet" type="Area2D"]
 collision_layer = 16
 collision_mask = 16
 script = ExtResource("1_mkf8s")
-
-[node name="Polygon2D" type="Polygon2D" parent="."]
-position = Vector2(0, 4.7683716e-07)
-scale = Vector2(0.36810747, 0.40640986)
-polygon = PackedVector2Array(10.866391, -14.763421, 10.866391, 14.763419, -10.866391, 14.763419, -10.866391, -14.763421)
+gradient = SubResource("Gradient_mkf8s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1.4901161e-07, -1.4901161e-07)
+position = Vector2(0, -1.7881393e-07)
 scale = Vector2(0.3199991, 0.3199991)
 shape = SubResource("RectangleShape2D_tah1u")
 
@@ -24,5 +53,25 @@ shape = SubResource("RectangleShape2D_tah1u")
 one_shot = true
 autostart = true
 ignore_time_scale = true
+
+[node name="Line2D" type="Line2D" parent="."]
+unique_name_in_owner = true
+rotation = -1.5707964
+scale = Vector2(1, 1.0042186)
+points = PackedVector2Array(-8, 0, 8, 0)
+width = 8.0
+gradient = SubResource("Gradient_mkf8s")
+begin_cap_mode = 1
+end_cap_mode = 1
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_y25gk")
+scale = Vector2(6.669513, 14.399999)
+amount = 10
+lifetime = 2.0
+speed_scale = 2.0
+randomness = 1.0
+trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_l5glv")
 
 [connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]
