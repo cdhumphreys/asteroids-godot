@@ -13,7 +13,7 @@ var input_vector: Vector2
 var bullet_scene : PackedScene = preload("res://scenes/bullet.tscn")
 
 @onready var gun: Marker2D = $%Marker2D
-@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+@onready var collision_polygon_2d: CollisionPolygon2D = %CollisionPolygon2D
 
 @export var shoot_cooldown: float = 1.0
 var can_shoot := true;
@@ -61,14 +61,14 @@ func _try_shoot():
 	
 func hit():
 	hide()
-	$CollisionShape2D.set_deferred("disabled", true)
+	collision_polygon_2d.set_deferred("disabled", true)
 	on_hit.emit()
 
 func reset():
 	position = start_position
 	velocity = Vector2.ZERO
 	rotation = 0
-	$CollisionShape2D.disabled = false
+	collision_polygon_2d.disabled = false
 	show()
 	
 	
