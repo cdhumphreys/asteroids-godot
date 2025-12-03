@@ -43,7 +43,8 @@ drag_and_drop_selection_enabled = false
 caret_blink = true
 caret_force_displayed = true
 
-[node name="PopupHandler" parent="." instance=ExtResource("2_ps0vl")]
+[node name="PopupHandler" parent="." node_paths=PackedStringArray("initial_focus_element") instance=ExtResource("2_ps0vl")]
 unique_name_in_owner = true
+initial_focus_element = NodePath("../LineEdit")
 
 [connection signal="text_submitted" from="LineEdit" to="." method="_on_line_edit_text_submitted"]
