@@ -61,13 +61,14 @@ func _input(event: InputEvent) -> void:
 
 func _remove_bullets():
 	for child in bullets_container.get_children():
-		child.queue_free()
+		bullets_container.remove_child(child)
+		child.queue_free.call_deferred()
 
 
 func _remove_asteroids():
 	for child in asteroids_container.get_children():
 		asteroids_container.remove_child(child)
-		child.queue_free()
+		child.queue_free.call_deferred()
 
 
 func _game_over() -> void:
