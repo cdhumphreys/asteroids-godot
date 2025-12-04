@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://dmlk1t3ynpejw"]
+[gd_scene load_steps=11 format=3 uid="uid://dmlk1t3ynpejw"]
 
 [ext_resource type="Script" uid="uid://2q20bdghejhb" path="res://scripts/bullet.gd" id="1_mkf8s"]
+[ext_resource type="Texture2D" uid="uid://ilf34xe7wsh1" path="res://assets/effects/glowing_circle.png" id="2_y25gk"]
 
 [sub_resource type="Gradient" id="Gradient_mkf8s"]
 colors = PackedColorArray(0, 0, 1, 1, 0, 1, 1, 1)
@@ -20,7 +21,7 @@ width = 2
 use_hdr = true
 
 [sub_resource type="Curve" id="Curve_mkf8s"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.06017983), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.25830406), 0.0, 0.0, 0, 0, Vector2(1, 0.06017983), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_y25gk"]
@@ -28,13 +29,15 @@ curve = SubResource("Curve_mkf8s")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_l5glv"]
 particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
 initial_velocity_min = -1.0
 initial_velocity_max = 1.0
 gravity = Vector3(0, 0, 0)
 linear_accel_min = -2.2351742e-06
 linear_accel_max = 99.99999
+damping_max = 10.0
 scale_min = 0.0
-scale_max = 4.0
 scale_curve = SubResource("CurveTexture_y25gk")
 color_ramp = SubResource("GradientTexture1D_l5glv")
 
@@ -68,6 +71,7 @@ end_cap_mode = 1
 material = SubResource("CanvasItemMaterial_y25gk")
 scale = Vector2(6.669513, 14.399999)
 amount = 10
+texture = ExtResource("2_y25gk")
 lifetime = 2.0
 speed_scale = 2.0
 randomness = 1.0

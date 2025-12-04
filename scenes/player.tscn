@@ -8,7 +8,6 @@ script = ExtResource("1_g2els")
 shoot_cooldown = 0.2
 
 [node name="ShipA" type="Sprite2D" parent="."]
-texture_filter = 1
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_g2els")
 
@@ -18,5 +17,6 @@ position = Vector2(0, -13)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 unique_name_in_owner = true
+visible = false
 scale = Vector2(0.5, 0.5)
 polygon = PackedVector2Array(-46, 46, 0, -46, 48, 48, 0, 20)
