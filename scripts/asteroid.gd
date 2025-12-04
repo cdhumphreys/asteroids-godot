@@ -39,19 +39,19 @@ func _on_hit_by_bullet():
 	EventBus.asteroid_hit.emit(self)
 	
 	if stats.size == Enums.AsteroidSize.SMALL:
-		queue_free()
+		queue_free.call_deferred()
 	elif stats.size == Enums.AsteroidSize.LARGE:
 		_split_into_smaller()
-		queue_free()
+		queue_free.call_deferred()
 
 func _split_into_smaller():
 	var parent_node = get_parent()
 	for i in range(2):
 		var new_asteroid: Asteroid = small_asteroid_scene.instantiate()
 		new_asteroid.stats = small_asteroid_stat
-		parent_node.add_child(new_asteroid)
 		new_asteroid.global_position = global_position
 		new_asteroid.rotation = rotation + randf_range(-PI/4, PI/4)
+		parent_node.add_child.call_deferred(new_asteroid)
 	
 
 func _on_area_entered(area: Area2D) -> void:
