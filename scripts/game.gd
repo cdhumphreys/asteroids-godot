@@ -72,12 +72,11 @@ func _remove_asteroids():
 
 
 func _game_over() -> void:
-	print("game over")
 	_remove_bullets()
 	_remove_asteroids()
 
 	get_tree().paused = true
-	
+
 	# If new high score (anywhere in top 10) then show name entry screen
 	if _check_for_new_high_score():
 		enter_name_menu.show()

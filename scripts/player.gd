@@ -19,10 +19,8 @@ var bullet_scene : PackedScene = preload("res://scenes/bullet.tscn")
 @export var shoot_cooldown: float = 1.0
 var can_shoot := true;
 
-var is_thrusting := false
-
 var start_position: Vector2
-var trail_tween := create_tween()
+var trail_tween: Tween
 
 
 func _ready() -> void:
@@ -40,17 +38,15 @@ func _handle_shoot():
 		
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("thrust_forward"):
-		print("pressed")
 		_reset_tween()
 		trail_tween.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 		trail_tween.tween_property(trail, "scale", Vector2(trail.scale.x, 0.3), 0.3)
 		
 	if event.is_action_released("thrust_forward"):
-		print("released")
 		_reset_tween()
 		trail_tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 		trail_tween.tween_property(trail, "scale", Vector2(trail.scale.x, 0), 0.5)
-		
+
 func _reset_tween() -> void:
 	if trail_tween:
 		trail_tween.kill()
@@ -63,12 +59,6 @@ func _handle_movement(delta:float):
 		rotate(ROTATION_SPEED*delta)
 	if Input.is_action_pressed("rotate_anticlockwise"):
 		rotate(-ROTATION_SPEED * delta)
-		
-	if Input.is_action_pressed("thrust_forward"):
-		is_thrusting = true
-		
-	if Input.is_action_just_released("thrust_forward"):
-		is_thrusting = false
 	
 	velocity += input_vector.rotated(rotation) * ACCELERATION
 	velocity = velocity.limit_length(MAX_SPEED)
