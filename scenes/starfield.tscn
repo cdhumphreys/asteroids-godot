@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://blklh1g1pl6aj"]
+
+[ext_resource type="Texture2D" uid="uid://mqwrqol11ngd" path="res://assets/stars/star_tiny.png" id="1_g6628"]
+[ext_resource type="Texture2D" uid="uid://pbetbki8xmhf" path="res://assets/stars/star_medium.png" id="2_6yukn"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6dd55"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 360, 1)
+direction = Vector3(-1, 0, 0)
+spread = 10.0
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.099999994
+scale_max = 0.099999994
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0ewwf"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 360, 1)
+direction = Vector3(-1, 0, 0)
+spread = 25.0
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.099999994
+scale_max = 0.14999999
+
+[node name="Starfield" type="Node2D"]
+
+[node name="Back" type="GPUParticles2D" parent="."]
+position = Vector2(1322, 360)
+amount = 500
+texture = ExtResource("1_g6628")
+lifetime = 300.0
+preprocess = 300.0
+process_material = SubResource("ParticleProcessMaterial_6dd55")
+
+[node name="Middle" type="GPUParticles2D" parent="."]
+position = Vector2(1322, 360)
+amount = 50
+texture = ExtResource("2_6yukn")
+lifetime = 300.0
+preprocess = 300.0
+process_material = SubResource("ParticleProcessMaterial_0ewwf")
