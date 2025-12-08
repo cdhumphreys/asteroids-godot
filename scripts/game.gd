@@ -4,7 +4,7 @@ class_name Game
 
 @export var asteroid_stats: Array[AsteroidStats]
 @export_range (1, 100) var MAX_ASTEROIDS: int
-@export var lives:int = 3 
+@export var MAX_LIVES:int = 3
 
 var asteroid_scene: PackedScene = preload("res://scenes/asteroid.tscn")
 var score = 0
@@ -12,6 +12,7 @@ var username = "";
 var asteroid_sizes = Enums.AsteroidSize.keys()
 var active_asteroids = 0
 
+var lives: int
 var active_save_game: SaveGame
 
 @onready var asteroid_spawn_timer: Timer = $AsteroidSpawnTimer
@@ -29,9 +30,11 @@ var active_save_game: SaveGame
 
 @onready var asteroids_container: Node = %AsteroidsContainer
 @onready var bullets_container: Node = %BulletsContainer
+@onready var lives_counter: LivesCounter = %LivesCounter
 
 
 func _ready() -> void:
+	lives = MAX_LIVES
 	get_tree().paused = true
 	EventBus.asteroid_hit.connect(_on_asteroid_destroyed)
 	EventBus.start_button_pressed.connect(_on_start_button_pressed)
@@ -43,6 +46,8 @@ func _ready() -> void:
 	active_save_game = Utils.load_game()
 	
 	main_menu.on_show()
+	
+	lives_counter.display_lives(lives)
 
 
 func _on_user_enters_username(new_text: String):
@@ -72,6 +77,12 @@ func _remove_asteroids():
 
 
 func _game_over() -> void:
+	lives -= 1
+	lives_counter.display_lives(lives)
+	if lives > 0:
+		player.reset(true)
+		return
+
 	_remove_bullets()
 	_remove_asteroids()
 
@@ -112,11 +123,17 @@ func _reset():
 	
 	_remove_bullets()
 	_remove_asteroids()
-		
+
+#	Reset state
 	active_asteroids = 0
 	score = 0
+	lives = MAX_LIVES
 	username = ""
+	
+#	Update UI
 	score_label.update_score(score)
+	lives_counter.display_lives(lives)
+	
 	
 	player.reset()
 

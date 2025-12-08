@@ -15,12 +15,14 @@ var bullet_scene : PackedScene = preload("res://scenes/bullet.tscn")
 @onready var gun: Marker2D = $%Marker2D
 @onready var collision_polygon_2d: CollisionPolygon2D = %CollisionPolygon2D
 @onready var trail: Sprite2D = %Trail
+@onready var ship_sprite: Sprite2D = %ShipA
 
 @export var shoot_cooldown: float = 1.0
 var can_shoot := true;
 
 var start_position: Vector2
 var trail_tween: Tween
+var flicker_tween: Tween
 
 
 func _ready() -> void:
@@ -84,12 +86,29 @@ func hit():
 	hide()
 	collision_polygon_2d.set_deferred("disabled", true)
 	on_hit.emit()
+	
 
-func reset():
+func _flicker():
+	if flicker_tween:
+		flicker_tween.kill()
+	flicker_tween = create_tween()
+	flicker_tween.tween_property(ship_sprite,"modulate:a", 0, 0.3)
+	flicker_tween.tween_property(ship_sprite,"modulate:a", 1, 0.3)
+	flicker_tween.tween_property(ship_sprite,"modulate:a", 0, 0.3)
+	flicker_tween.tween_property(ship_sprite,"modulate:a", 1, 0.3)
+	flicker_tween.tween_property(ship_sprite,"modulate:a", 0, 0.3)
+	flicker_tween.tween_property(ship_sprite,"modulate:a", 1, 0.3)
+	
+
+func reset(in_game = false):
 	position = start_position
 	velocity = Vector2.ZERO
 	rotation = 0
-	collision_polygon_2d.disabled = false
 	show()
+	if in_game:
+#		flicker sprite to show death, turn off collision while flickering
+		_flicker()
+		await flicker_tween.finished
+	collision_polygon_2d.set_deferred("disabled", false)
 	
 	
