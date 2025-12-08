@@ -13,4 +13,5 @@ script = ExtResource("1_8ghef")
 textures = Array[Texture]([ExtResource("2_wynlp"), ExtResource("3_086em"), ExtResource("4_64bxu"), ExtResource("5_k0guq")])
 size = 1
 collision_shape = ExtResource("1_086em")
+score_value = 5
 metadata/_custom_type_script = "uid://bc8m1euylr0y7"
