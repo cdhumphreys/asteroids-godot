@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://dmlk1t3ynpejw"]
 
 [ext_resource type="Script" uid="uid://2q20bdghejhb" path="res://scripts/bullet.gd" id="1_mkf8s"]
-[ext_resource type="Texture2D" uid="uid://ilf34xe7wsh1" path="res://assets/effects/glowing_circle.png" id="2_y25gk"]
+[ext_resource type="Texture2D" uid="uid://ilf34xe7wsh1" path="res://assets/images/effects/glowing_circle.png" id="2_y25gk"]
 
 [sub_resource type="Gradient" id="Gradient_mkf8s"]
 colors = PackedColorArray(0, 0, 1, 1, 0, 1, 1, 1)

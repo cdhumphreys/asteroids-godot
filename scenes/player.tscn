@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://nklf1vrn55rc"]
 
 [ext_resource type="Script" uid="uid://7gk5uweie87s" path="res://scripts/player.gd" id="1_g2els"]
-[ext_resource type="Texture2D" uid="uid://wbu84e0p1mh8" path="res://assets/player_ships/ship_F.png" id="2_g2els"]
-[ext_resource type="Texture2D" uid="uid://csgy17gjyr57q" path="res://assets/effects/effect_purple.png" id="3_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://wbu84e0p1mh8" path="res://assets/images/player_ships/ship_F.png" id="2_g2els"]
+[ext_resource type="Texture2D" uid="uid://csgy17gjyr57q" path="res://assets/images/effects/effect_purple.png" id="3_qhqgy"]
 
 [sub_resource type="Curve" id="Curve_qhqgy"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.58597106), 0.0, 0.0, 0, 0]
@@ -64,6 +64,7 @@ texture = ExtResource("3_qhqgy")
 offset = Vector2(0, 64)
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+z_index = -1
 position = Vector2(0, 9)
 amount = 100
 process_material = SubResource("ParticleProcessMaterial_ur7pv")

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bul7gadgy37p1"]
+[gd_scene load_steps=4 format=3 uid="uid://bul7gadgy37p1"]
 
 [ext_resource type="Script" uid="uid://cwm4i1hbs5hiw" path="res://scripts/pause_menu.gd" id="2_kukqi"]
+[ext_resource type="AudioStream" uid="uid://cl4e6fube4len" path="res://assets/sounds/doorOpen_002.ogg" id="3_5d2l8"]
 [ext_resource type="PackedScene" uid="uid://cnj2nmt8lbe3k" path="res://scenes/popup_handler.tscn" id="3_kukqi"]
 
 [node name="PauseMenu" type="CanvasLayer"]
@@ -61,6 +62,10 @@ text = "Quit"
 [node name="PopupHandler" parent="." node_paths=PackedStringArray("initial_focus_element") instance=ExtResource("3_kukqi")]
 unique_name_in_owner = true
 initial_focus_element = NodePath("../Foreground/MarginContainer/VBoxContainer/ButtonsVBoxContainer/ContinueButton")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("3_5d2l8")
 
 [connection signal="pressed" from="Foreground/MarginContainer/VBoxContainer/ButtonsVBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="Foreground/MarginContainer/VBoxContainer/ButtonsVBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

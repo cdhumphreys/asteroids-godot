@@ -24,7 +24,6 @@ point_count = 5
 script = ExtResource("1_lnu2h")
 asteroid_stats = Array[ExtResource("5_vtaks")]([ExtResource("4_iywne"), ExtResource("5_p57ef")])
 MAX_ASTEROIDS = 3
-MAX_LIVES = null
 
 [node name="Starfield" parent="." instance=ExtResource("12_dinhu")]
 

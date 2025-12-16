@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://blklh1g1pl6aj"]
 
-[ext_resource type="Texture2D" uid="uid://mqwrqol11ngd" path="res://assets/stars/star_tiny.png" id="1_g6628"]
-[ext_resource type="Texture2D" uid="uid://pbetbki8xmhf" path="res://assets/stars/star_medium.png" id="2_6yukn"]
+[ext_resource type="Texture2D" uid="uid://mqwrqol11ngd" path="res://assets/images/stars/star_tiny.png" id="1_g6628"]
+[ext_resource type="Texture2D" uid="uid://pbetbki8xmhf" path="res://assets/images/stars/star_medium.png" id="2_6yukn"]
 [ext_resource type="Shader" uid="uid://3xpdanmniw11" path="res://shaders/starfield_clouds.gdshader" id="3_0ewwf"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6dd55"]

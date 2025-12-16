@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cubtsk185hvvr"]
 
 [ext_resource type="Script" uid="uid://dp6sbe6pjisj3" path="res://scripts/lives_counter.gd" id="1_o6fio"]
-[ext_resource type="Texture2D" uid="uid://crdjmlvcqk21d" path="res://assets/player_ships/ship_A.png" id="1_peqf3"]
+[ext_resource type="Texture2D" uid="uid://crdjmlvcqk21d" path="res://assets/images/player_ships/ship_A.png" id="1_peqf3"]
 
 [node name="LivesCounter" type="CanvasLayer"]
 script = ExtResource("1_o6fio")
