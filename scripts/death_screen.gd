@@ -5,7 +5,7 @@ class_name DeathScreen
 @onready var popup_handler: PopupHandler = %PopupHandler
 
 
-func on_show():
+func on_show() -> void:
 	popup_handler.focus_first_element()
 
 

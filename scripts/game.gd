@@ -3,14 +3,14 @@ extends Node2D
 class_name Game
 
 @export var asteroid_stats: Array[AsteroidStats]
-@export_range (1, 100) var MAX_ASTEROIDS: int
-@export var MAX_LIVES:int = 3
+@export_range(1, 100) var MAX_ASTEROIDS: int
+@export var MAX_LIVES: int = 3
 
 var asteroid_scene: PackedScene = preload("res://scenes/asteroid.tscn")
-var score = 0
-var username = "";
+var score: int = 0
+var username: String = ""
 var asteroid_sizes = Enums.AsteroidSize.keys()
-var active_asteroids = 0
+var active_asteroids: int = 0
 
 var lives: int
 var active_save_game: SaveGame
@@ -64,16 +64,15 @@ func _input(event: InputEvent) -> void:
 			pause_menu.on_show()
 
 
-func _remove_bullets():
+func _remove_bullets() -> void:
 	for child in bullets_container.get_children():
-		bullets_container.remove_child.call_deferred(child)
-		child.queue_free.call_deferred()
+		bullets_container.call_deferred("remove_child", child)
+		child.call_deferred("queue_free")
 
-
-func _remove_asteroids():
+func _remove_asteroids() -> void:
 	for child in asteroids_container.get_children():
-		asteroids_container.remove_child.call_deferred(child)
-		child.queue_free.call_deferred()
+		asteroids_container.call_deferred("remove_child", child)
+		child.call_deferred("queue_free")
 
 
 func _game_over() -> void:
@@ -109,7 +108,6 @@ func _game_over() -> void:
 
 
 func _new_game() -> void:
-	print("starting new game")
 	_reset()
 	asteroid_spawn_timer.start()
 	get_tree().paused = false
@@ -140,7 +138,6 @@ func _reset():
 
 func _get_random_asteroid_stat() -> AsteroidStats:
 	var res: AsteroidStats = asteroid_stats.pick_random()
-	
 	return res.duplicate()
 			
 
@@ -153,7 +150,7 @@ func _on_asteroid_spawn_timer_timeout() -> void:
 	asteroid.stats = asteroid_stat
 
 	# Get random point along boundary
-	asteroid_spawn_location.	progress_ratio = randf()
+	asteroid_spawn_location.progress_ratio = randf()
 	asteroid.global_position = asteroid_spawn_location.position
 	
 	# Perpendicular to "spawn" vector - points inwards, not sure why PI and not PI/2
@@ -161,7 +158,7 @@ func _on_asteroid_spawn_timer_timeout() -> void:
 	var direction = asteroid_spawn_location.rotation + PI
 	
 	# Add random offset 
-	direction += randf_range(-PI/4, PI/4)
+	direction += randf_range(-PI / 4, PI / 4)
 	
 	# Set direction
 	asteroid.rotate(direction)
@@ -210,13 +207,13 @@ func _add_new_high_score(new_high_score_entry: HighScore):
 	active_save_game.high_scores.sort_custom(func(a: HighScore, b: HighScore):
 		return a.score > b.score)
 	
-	# if more than 10 entries then remove last one
-	if len(active_save_game.high_scores) > 10:
+	# If more than 10 entries then remove last one
+	if active_save_game.high_scores.size() > 10:
 		active_save_game.high_scores.pop_back()
 	
 
-func _check_for_new_high_score() -> bool:	
-	if len(active_save_game.high_scores) < 10:
+func _check_for_new_high_score() -> bool:
+	if active_save_game.high_scores.size() < 10:
 		return true
 	
 	for entry in active_save_game.high_scores:

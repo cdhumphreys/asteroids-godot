@@ -2,7 +2,7 @@ extends CanvasLayer
 class_name MainMenu
 @onready var popup_handler: PopupHandler = %PopupHandler
 
-func on_show():
+func on_show() -> void:
 	popup_handler.focus_first_element()
 	
 func _on_quit_button_pressed() -> void:

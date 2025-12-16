@@ -12,13 +12,13 @@ const OPEN_SOUND = preload("uid://cl4e6fube4len")
 const CLOSE_SOUND = preload("uid://b3ntcp4qu8uor")
 
 
-func on_show():
+func on_show() -> void:
 	popup_handler.focus_first_element()
 	
 	audio_stream_player.stream = OPEN_SOUND
 	audio_stream_player.play()
 
-func on_hide():
+func on_hide() -> void:
 	audio_stream_player.stream = CLOSE_SOUND
 	audio_stream_player.play()
 

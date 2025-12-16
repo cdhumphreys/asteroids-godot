@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://2q20bdghejhb" path="res://scripts/bullet.gd" id="1_mkf8s"]
 [ext_resource type="Texture2D" uid="uid://ilf34xe7wsh1" path="res://assets/images/effects/glowing_circle.png" id="2_y25gk"]
 
-[sub_resource type="Gradient" id="Gradient_mkf8s"]
+[sub_resource type="Gradient" id="Gradient_l5glv"]
 colors = PackedColorArray(0, 0, 1, 1, 0, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tah1u"]
@@ -42,12 +42,14 @@ scale_curve = SubResource("CurveTexture_y25gk")
 color_ramp = SubResource("GradientTexture1D_l5glv")
 
 [node name="Bullet" type="Area2D"]
+modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
 collision_layer = 16
 collision_mask = 16
 script = ExtResource("1_mkf8s")
-gradient = SubResource("Gradient_mkf8s")
+gradient = SubResource("Gradient_l5glv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -1.7881393e-07)
 scale = Vector2(0.3199991, 0.3199991)
 shape = SubResource("RectangleShape2D_tah1u")
@@ -63,7 +65,7 @@ rotation = -1.5707964
 scale = Vector2(1, 1.0042186)
 points = PackedVector2Array(-8, 0, 8, 0)
 width = 8.0
-gradient = SubResource("Gradient_mkf8s")
+gradient = SubResource("Gradient_l5glv")
 begin_cap_mode = 1
 end_cap_mode = 1
 

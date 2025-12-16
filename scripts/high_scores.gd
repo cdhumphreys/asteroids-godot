@@ -11,20 +11,19 @@ signal on_close
 @onready var popup_handler: PopupHandler = %PopupHandler
 @onready var close_button: Button = %CloseButton
 
-func show_score_list(high_scores: Array[HighScore]):
+func show_score_list(high_scores: Array[HighScore]) -> void:
 	for item in grid_container.get_children():
 		item.queue_free()
 		
-	var idx = 0
-	for high_score in high_scores:
+	for idx in range(high_scores.size()):
+		var high_score = high_scores[idx]
 		var position_label: Label = template_position_label.duplicate()
 		var score_label: Label = template_score_label.duplicate()
 		var username_label: Label = template_username_label.duplicate()
 		
-		position_label.text = "%s." % (idx + 1)
-		score_label.text = "%s" % high_score.score
+		position_label.text = "%d." % (idx + 1)
+		score_label.text = "%d" % high_score.score
 		username_label.text = high_score.username
-		idx += 1
 		
 		grid_container.add_child(position_label)
 		grid_container.add_child(score_label)
@@ -34,7 +33,7 @@ func show_score_list(high_scores: Array[HighScore]):
 		score_label.show()
 		username_label.show()
 	
-func on_show():
+func on_show() -> void:
 	popup_handler.focus_first_element()
 
 

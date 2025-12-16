@@ -12,7 +12,7 @@ const SPEED = 800
 func _ready() -> void:
 	set_gradient(gradient)
 
-func _physics_process(delta):
+func _physics_process(delta: float) -> void:
 	if not Engine.is_editor_hint():
 		position -= transform.y * SPEED * delta
 
@@ -25,7 +25,7 @@ func _on_area_entered(area: Area2D) -> void:
 	# remove bullet
 	queue_free()
 
-func set_gradient(new_gradient: Gradient):
+func set_gradient(new_gradient: Gradient) -> void:
 	gradient = new_gradient
 	
 	if line_2d == null:
