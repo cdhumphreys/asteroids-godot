@@ -16,6 +16,9 @@ var bullet_scene : PackedScene = preload("res://scenes/bullet.tscn")
 @onready var collision_polygon_2d: CollisionPolygon2D = %CollisionPolygon2D
 @onready var trail: Sprite2D = %Trail
 @onready var ship_sprite: Sprite2D = %ShipA
+@onready var thrust_audio_player: AudioStreamPlayer = $ThrustAudioPlayer
+
+@export var thrust_stream: AudioStream
 
 @export var shoot_cooldown: float = 1.0
 var can_shoot := true;
@@ -27,7 +30,7 @@ var flicker_tween: Tween
 
 func _ready() -> void:
 	start_position = global_position
-
+	thrust_audio_player.stream = thrust_stream
 
 func _physics_process(delta:float):
 	_handle_movement(delta)
@@ -43,11 +46,13 @@ func _input(event: InputEvent) -> void:
 		_reset_tween()
 		trail_tween.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 		trail_tween.tween_property(trail, "scale", Vector2(trail.scale.x, 0.3), 0.3)
+		thrust_audio_player.play()
 		
 	if event.is_action_released("thrust_forward"):
 		_reset_tween()
 		trail_tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 		trail_tween.tween_property(trail, "scale", Vector2(trail.scale.x, 0), 0.5)
+		thrust_audio_player.stop()
 
 func _reset_tween() -> void:
 	if trail_tween:
