@@ -76,7 +76,7 @@ process_material = SubResource("ParticleProcessMaterial_ur7pv")
 [node name="ThrustAudioPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("5_qlg0r")
-volume_db = -10.0
+volume_db = -5.0
 
 [node name="BulletSoundPlayers" type="Node" parent="."]
 unique_name_in_owner = true
