@@ -166,14 +166,27 @@ func _on_asteroid_spawn_timer_timeout() -> void:
 	asteroids_container.add_child(asteroid)
 	active_asteroids += 1
 
+#Create sound player and play sound set by asteroid resource
+func _play_asteroid_destroyed_sound(asteroid: Asteroid):
+	var stream = asteroid.stats.destroyed_sound
+	
+	var new_audio_player = AudioStreamPlayer.new()
+	new_audio_player.stream = stream
+	get_tree().root.add_child(new_audio_player)
+	new_audio_player.play(0)
+	
+	await new_audio_player.finished
+	new_audio_player.queue_free()
 
 func _on_asteroid_destroyed(asteroid: Asteroid):
+	_play_asteroid_destroyed_sound(asteroid)
 	var asteroid_size = asteroid.stats.size
 	if asteroid_size == Enums.AsteroidSize.SMALL:
 		active_asteroids -= 1
 	elif asteroid_size == Enums.AsteroidSize.LARGE:
 		active_asteroids += 1
-
+		
+	
 	score += asteroid.stats.score_value
 	score_label.update_score(score)
 

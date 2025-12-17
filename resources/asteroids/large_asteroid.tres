@@ -1,17 +1,19 @@
-[gd_resource type="Resource" script_class="AsteroidStats" load_steps=7 format=3 uid="uid://b4u3c2swmtdmb"]
+[gd_resource type="Resource" script_class="AsteroidStats" load_steps=8 format=3 uid="uid://b4u3c2swmtdmb"]
 
 [ext_resource type="Script" uid="uid://bc8m1euylr0y7" path="res://classes/asteroid_stats.gd" id="1_8ghef"]
 [ext_resource type="Shape2D" uid="uid://201sgl87ebnb" path="res://resources/asteroids/collision_shape_large.tres" id="1_086em"]
-[ext_resource type="Texture2D" uid="uid://cmu811soniauc" path="res://assets/images/asteroids/meteor_detailedLarge.png" id="2_wynlp"]
-[ext_resource type="Texture2D" uid="uid://1dyymqknwrx8" path="res://assets/images/asteroids/meteor_large.png" id="3_086em"]
-[ext_resource type="Texture2D" uid="uid://cdk2n6tid6arj" path="res://assets/images/asteroids/meteor_squareDetailedLarge.png" id="4_64bxu"]
-[ext_resource type="Texture2D" uid="uid://decleta02chxa" path="res://assets/images/asteroids/meteor_squareLarge.png" id="5_k0guq"]
+[ext_resource type="AudioStream" uid="uid://dndkep3gp6qb6" path="res://assets/sounds/lowFrequency_explosion_000.ogg" id="2_k0guq"]
+[ext_resource type="Texture2D" uid="uid://cmu811soniauc" path="res://assets/images/asteroids/meteor_detailedLarge.png" id="5_b8enf"]
+[ext_resource type="Texture2D" uid="uid://1dyymqknwrx8" path="res://assets/images/asteroids/meteor_large.png" id="6_danva"]
+[ext_resource type="Texture2D" uid="uid://cdk2n6tid6arj" path="res://assets/images/asteroids/meteor_squareDetailedLarge.png" id="7_q8j70"]
+[ext_resource type="Texture2D" uid="uid://decleta02chxa" path="res://assets/images/asteroids/meteor_squareLarge.png" id="8_f81v8"]
 
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_8ghef")
-textures = Array[Texture]([ExtResource("2_wynlp"), ExtResource("3_086em"), ExtResource("4_64bxu"), ExtResource("5_k0guq")])
+textures = Array[Texture]([ExtResource("5_b8enf"), ExtResource("6_danva"), ExtResource("7_q8j70"), ExtResource("8_f81v8")])
 size = 1
 collision_shape = ExtResource("1_086em")
 score_value = 5
+destroyed_sound = ExtResource("2_k0guq")
 metadata/_custom_type_script = "uid://bc8m1euylr0y7"

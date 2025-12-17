@@ -10,6 +10,7 @@ class_name AsteroidStats
 
 @export var score_value: int
 
+@export var destroyed_sound: AudioStream
 
 const MIN_SPEEDS = {
 	Enums.AsteroidSize.SMALL: 150,
