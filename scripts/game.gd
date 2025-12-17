@@ -32,6 +32,8 @@ var active_save_game: SaveGame
 @onready var bullets_container: Node = %BulletsContainer
 @onready var lives_counter: LivesCounter = %LivesCounter
 
+@onready var player_hit_audio_player: AudioStreamPlayer = %PlayerHitAudioPlayer
+
 
 func _ready() -> void:
 	lives = MAX_LIVES
@@ -40,6 +42,7 @@ func _ready() -> void:
 	EventBus.start_button_pressed.connect(_on_start_button_pressed)
 	EventBus.continue_button_pressed.connect(_on_continue_button_pressed)
 	EventBus.new_game_button_pressed.connect(_new_game)
+	
 	
 	enter_name_menu.on_name_submitted.connect(_on_user_enters_username)
 	
@@ -75,15 +78,19 @@ func _remove_asteroids() -> void:
 		child.call_deferred("queue_free")
 
 
-func _game_over() -> void:
+func _on_player_hit() -> void:
 	lives -= 1
 	lives_counter.display_lives(lives)
+	
 	if lives > 0:
+		_play_hit_sound()
 		player.reset(true)
 		return
 
 	_remove_bullets()
 	_remove_asteroids()
+	
+	_play_destroyed_sound()
 
 	get_tree().paused = true
 
@@ -234,3 +241,11 @@ func _check_for_new_high_score() -> bool:
 			return true
 			
 	return false
+
+func _play_hit_sound():
+	player_hit_audio_player.stream = player.hit_sound
+	player_hit_audio_player.play(0)
+
+func _play_destroyed_sound():
+	player_hit_audio_player.stream = player.destroyed_sound
+	player_hit_audio_player.play(0)

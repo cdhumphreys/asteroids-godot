@@ -10,10 +10,15 @@ signal on_hit
 @onready var ship_sprite: Sprite2D = %ShipA
 @onready var thrust_audio_player: AudioStreamPlayer = %ThrustAudioPlayer
 
+@export_group("Misc. Sounds")
+@export var hit_sound: AudioStream
+@export var destroyed_sound: AudioStream
+
 @export_group("Shooting")
 @export var shoot_stream: AudioStream
 @export_range (0.0, 1.0) var shoot_volume: float = 1.0
 @export var shoot_cooldown: float = 1.0
+
 
 @onready var bullet_sound_players_container: Node = %BulletSoundPlayers
 

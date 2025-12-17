@@ -75,5 +75,9 @@ unique_name_in_owner = true
 [node name="BulletsContainer" type="Node" parent="."]
 unique_name_in_owner = true
 
-[connection signal="on_hit" from="Player" to="." method="_game_over"]
+[node name="PlayerHitAudioPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+process_mode = 3
+
+[connection signal="on_hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="timeout" from="AsteroidSpawnTimer" to="." method="_on_asteroid_spawn_timer_timeout"]
