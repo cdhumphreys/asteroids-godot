@@ -61,6 +61,3 @@ func _on_area_entered(area: Area2D) -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
 		body.hit()
-
-func _play_destroyed_sound(asteroid_size: Enums.AsteroidSize):
-	print("asteroid hit ", asteroid_size)

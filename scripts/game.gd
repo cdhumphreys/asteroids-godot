@@ -187,13 +187,13 @@ func _play_asteroid_destroyed_sound(asteroid: Asteroid):
 
 func _on_asteroid_destroyed(asteroid: Asteroid):
 	_play_asteroid_destroyed_sound(asteroid)
+	
 	var asteroid_size = asteroid.stats.size
 	if asteroid_size == Enums.AsteroidSize.SMALL:
 		active_asteroids -= 1
 	elif asteroid_size == Enums.AsteroidSize.LARGE:
 		active_asteroids += 1
 		
-	
 	score += asteroid.stats.score_value
 	score_label.update_score(score)
 
