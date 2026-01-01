@@ -1,13 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://dmlk1t3ynpejw"]
+[gd_scene load_steps=12 format=3 uid="uid://dmlk1t3ynpejw"]
 
 [ext_resource type="Script" uid="uid://2q20bdghejhb" path="res://scripts/bullet.gd" id="1_mkf8s"]
 [ext_resource type="Texture2D" uid="uid://ilf34xe7wsh1" path="res://assets/images/effects/glowing_circle.png" id="2_y25gk"]
+[ext_resource type="Script" uid="uid://es6p3102ri5g" path="res://components/hitbox_component.gd" id="3_l5glv"]
 
 [sub_resource type="Gradient" id="Gradient_l5glv"]
 colors = PackedColorArray(0, 0, 1, 1, 0, 1, 1, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tah1u"]
-size = Vector2(31.250088, 81.25023)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_y25gk"]
 blend_mode = 1
@@ -41,18 +39,12 @@ scale_min = 0.0
 scale_curve = SubResource("CurveTexture_y25gk")
 color_ramp = SubResource("GradientTexture1D_l5glv")
 
-[node name="Bullet" type="Area2D"]
-modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
-collision_layer = 16
-collision_mask = 20
-script = ExtResource("1_mkf8s")
-gradient = SubResource("Gradient_l5glv")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tah1u"]
+size = Vector2(31.250088, 81.25023)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(0, -1.7881393e-07)
-scale = Vector2(0.3199991, 0.3199991)
-shape = SubResource("RectangleShape2D_tah1u")
+[node name="Bullet" type="Node2D"]
+modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
+script = ExtResource("1_mkf8s")
 
 [node name="Lifetime" type="Timer" parent="."]
 one_shot = true
@@ -80,4 +72,15 @@ randomness = 1.0
 trail_lifetime = 1.0
 process_material = SubResource("ParticleProcessMaterial_l5glv")
 
+[node name="HitboxComponent" type="Area2D" parent="."]
+collision_layer = 6
+collision_mask = 0
+script = ExtResource("3_l5glv")
+metadata/_custom_type_script = "uid://es6p3102ri5g"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+scale = Vector2(0.3199991, 0.3199991)
+shape = SubResource("RectangleShape2D_tah1u")
+
 [connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]
+[connection signal="on_hit" from="HitboxComponent" to="." method="_on_hitbox_component_on_hit"]

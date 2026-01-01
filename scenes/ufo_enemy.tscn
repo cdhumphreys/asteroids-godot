@@ -1,0 +1,62 @@
+[gd_scene load_steps=10 format=3 uid="uid://1ft7nhqv4y66"]
+
+[ext_resource type="Script" uid="uid://756fovcxanef" path="res://scripts/ufo_enemy.gd" id="1_pyo60"]
+[ext_resource type="Texture2D" uid="uid://b0ymg7cwvu7lp" path="res://assets/images/enemies/enemy_A.png" id="2_21gha"]
+[ext_resource type="AudioStream" uid="uid://7855xvldui56" path="res://assets/sounds/explosionCrunch_003.ogg" id="2_p5ejf"]
+[ext_resource type="PackedScene" uid="uid://qhsg5ao75cn4" path="res://components/shooting_component.tscn" id="3_21gha"]
+[ext_resource type="PackedScene" uid="uid://dn1pp73ocvvck" path="res://scenes/enemy_bullet.tscn" id="4_nute1"]
+[ext_resource type="AudioStream" uid="uid://w4qi7fefunfx" path="res://assets/sounds/laserRetro_004.ogg" id="4_ohj4o"]
+[ext_resource type="Script" uid="uid://yrtbf2hdhsv5" path="res://components/health_component.gd" id="6_mlg37"]
+[ext_resource type="Script" uid="uid://cqfb8sug2u2v5" path="res://components/hurtbox_component.gd" id="7_p5ejf"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ohj4o"]
+radius = 16.0
+height = 80.0
+
+[node name="UfoEnemy" type="CharacterBody2D" node_paths=PackedStringArray("shooting_component")]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_pyo60")
+shooting_component = NodePath("ShootingComponent")
+destroyed_sound = ExtResource("2_p5ejf")
+
+[node name="EnemyA" type="Sprite2D" parent="."]
+self_modulate = Color(0.067817606, 0.75039226, 0, 1)
+texture = ExtResource("2_21gha")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, -50)
+
+[node name="InitialShootTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="ShootingComponent" parent="." node_paths=PackedStringArray("bullet_spawn_position") instance=ExtResource("3_21gha")]
+bullet_scene = ExtResource("4_nute1")
+bullet_spawn_position = NodePath("../Marker2D")
+shoot_audio_stream = ExtResource("4_ohj4o")
+shoot_cooldown = 6.0
+shoot_volume = 0.2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -8)
+shape = SubResource("CapsuleShape2D_ohj4o")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("6_mlg37")
+metadata/_custom_type_script = "uid://yrtbf2hdhsv5"
+
+[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("7_p5ejf")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://cqfb8sug2u2v5"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HurtboxComponent"]
+polygon = PackedVector2Array(-0.9000015, -53.3, -3, -52.2, -3, -50.8, -4.799999, -49, -6.5999985, -49, -20, 4.800003, -20, 7, -24.5, 10.5, -26.8, 10, -37.6, 10, -43.6, 14, -46.2, 14, -52.2, 25, -54.3, 25, -52, 40.300003, -52, 42.9, -38.7, 54, -25.2, 54, -14.200001, 44, -12.099998, 44, -11.200001, 29.099998, -3, 35.9, -3, 37.300003, -0.70000076, 38.4, 10, 29.300003, 10, 38.699997, 16, 46.6, 16, 48.199997, 24, 52.199997, 24, 54.300003, 40.300003, 52, 43, 52, 52, 40, 54, 40, 54, 26.400002, 47, 16.400002, 47, 14.599998, 39, 11.5, 39, 9.800003, 26.800003, 11, 24, 11, 20, 6, 7, -43, 7, -48.1)
+
+[connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_component_health_depleted"]

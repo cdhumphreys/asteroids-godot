@@ -1,14 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://dn1pp73ocvvck"]
+[gd_scene load_steps=12 format=3 uid="uid://dn1pp73ocvvck"]
 
 [ext_resource type="Script" uid="uid://2q20bdghejhb" path="res://scripts/bullet.gd" id="1_qx7rs"]
 [ext_resource type="Texture2D" uid="uid://ilf34xe7wsh1" path="res://assets/images/effects/glowing_circle.png" id="2_38r62"]
+[ext_resource type="Script" uid="uid://es6p3102ri5g" path="res://components/hitbox_component.gd" id="3_38r62"]
 
 [sub_resource type="Gradient" id="Gradient_l5glv"]
-offsets = PackedFloat32Array(0.003921569, 1)
-colors = PackedColorArray(0.6278173, 0, 0.25545308, 1, 0.7698625, 0.64995646, 0, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tah1u"]
-size = Vector2(31.250088, 81.25023)
+colors = PackedColorArray(0.6374007, 0, 0.16399178, 1, 0.7698625, 0.64995646, 0, 1)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_y25gk"]
 blend_mode = 1
@@ -42,18 +39,12 @@ scale_min = 0.0
 scale_curve = SubResource("CurveTexture_y25gk")
 color_ramp = SubResource("GradientTexture1D_l5glv")
 
-[node name="EnemyBullet" type="Area2D"]
-modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
-collision_layer = 32
-collision_mask = 32
-script = ExtResource("1_qx7rs")
-gradient = SubResource("Gradient_l5glv")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tah1u"]
+size = Vector2(31.250088, 81.25023)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(0, -1.7881393e-07)
-scale = Vector2(0.3199991, 0.3199991)
-shape = SubResource("RectangleShape2D_tah1u")
+[node name="EnemyBullet" type="Node2D"]
+modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
+script = ExtResource("1_qx7rs")
 
 [node name="Lifetime" type="Timer" parent="."]
 wait_time = 2.0
@@ -82,5 +73,15 @@ randomness = 1.0
 trail_lifetime = 1.0
 process_material = SubResource("ParticleProcessMaterial_l5glv")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="HitboxComponent" type="Area2D" parent="."]
+collision_mask = 0
+script = ExtResource("3_38r62")
+metadata/_custom_type_script = "uid://es6p3102ri5g"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+visible = false
+position = Vector2(0, -1.7881393e-07)
+scale = Vector2(0.3199991, 0.3199991)
+shape = SubResource("RectangleShape2D_tah1u")
+
 [connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]

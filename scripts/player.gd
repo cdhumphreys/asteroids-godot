@@ -5,6 +5,8 @@ class_name Player
 signal on_hit
 
 @export var shooting_component:ShootingComponent
+@onready var health_component: HealthComponent = %HealthComponent
+
 @onready var collision_polygon_2d: CollisionPolygon2D = %CollisionPolygon2D
 @onready var trail: Sprite2D = %Trail
 @onready var ship_sprite: Sprite2D = %ShipA
@@ -97,3 +99,9 @@ func reset(in_game: bool = false) -> void:
 		_flicker()
 		await flicker_tween.finished
 	collision_polygon_2d.set_deferred("disabled", false)
+
+
+func _on_health_component_health_depleted() -> void:
+	hide()
+	collision_polygon_2d.set_deferred("disabled", true)
+	on_hit.emit()
