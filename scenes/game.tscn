@@ -20,7 +20,7 @@ _data = {
 }
 point_count = 5
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" groups=["Game"]]
 script = ExtResource("1_lnu2h")
 asteroid_stats = Array[ExtResource("5_vtaks")]([ExtResource("4_iywne"), ExtResource("5_p57ef")])
 MAX_ASTEROIDS = 3
@@ -78,6 +78,14 @@ unique_name_in_owner = true
 [node name="PlayerHitAudioPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 process_mode = 3
+
+[node name="EnemySpawnTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 8.0
+autostart = true
+
+[node name="EnemiesContainer" type="Node" parent="."]
+unique_name_in_owner = true
 
 [connection signal="on_hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="timeout" from="AsteroidSpawnTimer" to="." method="_on_asteroid_spawn_timer_timeout"]

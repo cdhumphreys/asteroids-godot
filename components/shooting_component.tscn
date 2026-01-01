@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://qhsg5ao75cn4"]
+
+[ext_resource type="Script" uid="uid://bqqnwgd6rtmux" path="res://components/shooting_component.gd" id="1_mjs3s"]
+[ext_resource type="PackedScene" uid="uid://dmlk1t3ynpejw" path="res://scenes/bullet.tscn" id="2_5bykv"]
+[ext_resource type="AudioStream" uid="uid://vgncpicw36pm" path="res://assets/sounds/laserSmall_004.ogg" id="3_66gos"]
+
+[node name="ShootingComponent" type="Node" node_paths=PackedStringArray("bullet_spawn_position")]
+script = ExtResource("1_mjs3s")
+bullet_scene = ExtResource("2_5bykv")
+bullet_spawn_position = NodePath("")
+shoot_audio_stream = ExtResource("3_66gos")
+shoot_cooldown = 0.2
+shoot_volume = 0.75
