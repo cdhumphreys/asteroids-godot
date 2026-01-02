@@ -3,7 +3,7 @@ extends Node
 class_name HealthComponent
 
 @export var max_health: int = 1 : set = _set_max_health, get = _get_max_health
-
+@export var is_invincible = false
 var current_health: int : set = _set_current_health, get = _get_current_health
 
 signal health_changed(difference: int)
@@ -25,6 +25,9 @@ func _get_max_health():
 	return max_health
 
 func _set_current_health(new_value: int):
+	if is_invincible:
+		return
+
 	if new_value == current_health:
 		return
 	var difference = current_health - new_value
