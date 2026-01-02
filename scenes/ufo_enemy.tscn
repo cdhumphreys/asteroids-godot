@@ -14,6 +14,7 @@ radius = 16.0
 height = 80.0
 
 [node name="UfoEnemy" type="CharacterBody2D" node_paths=PackedStringArray("shooting_component")]
+scale = Vector2(0.75, 0.75)
 collision_layer = 16
 collision_mask = 16
 script = ExtResource("1_pyo60")
@@ -63,5 +64,10 @@ metadata/_custom_type_script = "uid://cqfb8sug2u2v5"
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HurtboxComponent"]
 rotation = 1.5707964
 polygon = PackedVector2Array(-0.9000015, -53.3, -3, -52.2, -3, -50.8, -4.799999, -49, -6.5999985, -49, -20, 4.800003, -20, 7, -24.5, 10.5, -26.8, 10, -37.6, 10, -43.6, 14, -46.2, 14, -52.2, 25, -54.3, 25, -52, 40.300003, -52, 42.9, -38.7, 54, -25.2, 54, -14.200001, 44, -12.099998, 44, -11.200001, 29.099998, -3, 35.9, -3, 37.300003, -0.70000076, 38.4, 10, 29.300003, 10, 38.699997, 16, 46.6, 16, 48.199997, 24, 52.199997, 24, 54.300003, 40.300003, 52, 43, 52, 52, 40, 54, 40, 54, 26.400002, 47, 16.400002, 47, 14.599998, 39, 11.5, 39, 9.800003, 26.800003, 11, 24, 11, 20, 6, 7, -43, 7, -48.1)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+rotation = 1.5707964
+energy = 0.25
+texture = ExtResource("2_21gha")
 
 [connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_component_health_depleted"]

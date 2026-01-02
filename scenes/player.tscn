@@ -104,4 +104,9 @@ unique_name_in_owner = true
 script = ExtResource("9_ur7pv")
 metadata/_custom_type_script = "uid://yrtbf2hdhsv5"
 
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.1
+texture = ExtResource("2_g2els")
+texture_scale = 0.5
+
 [connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_component_health_depleted"]

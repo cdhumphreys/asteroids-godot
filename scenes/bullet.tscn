@@ -43,7 +43,7 @@ color_ramp = SubResource("GradientTexture1D_l5glv")
 size = Vector2(31.250088, 81.25023)
 
 [node name="Bullet" type="Node2D"]
-modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
+modulate = Color(1.5719999, 1.5719999, 1.5719999, 1)
 script = ExtResource("1_mkf8s")
 
 [node name="Lifetime" type="Timer" parent="."]
@@ -79,6 +79,7 @@ script = ExtResource("3_l5glv")
 metadata/_custom_type_script = "uid://es6p3102ri5g"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+visible = false
 scale = Vector2(0.3199991, 0.3199991)
 shape = SubResource("RectangleShape2D_tah1u")
 
