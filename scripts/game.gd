@@ -8,6 +8,7 @@ class_name Game
 @export var asteroid_stats: Array[AsteroidStats]
 @export_range(1, 100) var MAX_ASTEROIDS: int
 @export var MAX_LIVES: int = 3
+@export var MAX_ENEMIES:int = 3
 
 # ============================================================================
 # SCENE REFERENCES
@@ -21,6 +22,7 @@ var enemy_scene: PackedScene = preload("res://scenes/ufo_enemy.tscn")
 var score: int = 0
 var username: String = ""
 var active_asteroids: int = 0
+var active_enemies:int = 0
 var lives: int
 var active_save_game: SaveGame
 
@@ -114,6 +116,7 @@ func _clear_all_entities() -> void:
 
 func _reset_game_state() -> void:
 	active_asteroids = 0
+	active_enemies = 0
 	score = 0
 	lives = MAX_LIVES
 	username = ""
@@ -208,10 +211,27 @@ func _remove_asteroids() -> void:
 # ENEMIES
 # ============================================================================
 func _spawn_enemy() -> void:
+	if active_enemies >= MAX_ENEMIES:
+		return
+	active_enemies += 1
+	
 	var edge: float = [0.0, 1.0].pick_random()
-	var x = edge * get_viewport_rect().size.x + (0.5 - edge) * 128
-	var y = randi_range(0, 200)
 	var enemy: UfoEnemy = enemy_scene.instantiate()
+	var enemy_sprite: Sprite2D
+	for child in enemy.get_children():
+		if child is Sprite2D:
+			enemy_sprite = child
+			break
+	if enemy_sprite == null:
+		print("can't find sprite")
+		return
+
+	var sprite_size = enemy_sprite.get_rect().size
+#	0 or 1 * viewport +/- enemy sprite to appear offscreen
+	var offset = -1 * sprite_size.x if edge == 0 else sprite_size.x
+	var x = edge * get_viewport_rect().size.x + offset
+	var y = randi_range(0, 200)
+	enemy.look_at(player.position)
 	enemies_container.add_child(enemy)
 	enemy.global_position = Vector2(x, y)
 

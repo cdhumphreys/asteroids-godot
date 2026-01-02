@@ -80,7 +80,7 @@ unique_name_in_owner = true
 wait_time = 8.0
 autostart = true
 
-[node name="EnemiesContainer" type="Node" parent="."]
+[node name="EnemiesContainer" type="Node" parent="." groups=["EnemyContainer"]]
 unique_name_in_owner = true
 
 [connection signal="timeout" from="AsteroidSpawnTimer" to="." method="_on_asteroid_spawn_timer_timeout"]

@@ -32,6 +32,7 @@ window/stretch/aspect="expand"
 [global_group]
 
 Game=""
+EnemyContainer=""
 
 [gui]
 
@@ -114,6 +115,7 @@ pause={
 2d_physics/layer_2="AsteroidHitbox"
 2d_physics/layer_3="EnemyHitbox"
 2d_physics/layer_4="World Bounds"
+2d_physics/layer_5="EnemyColliders"
 
 [rendering]
 
