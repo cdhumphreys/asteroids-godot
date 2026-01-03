@@ -236,6 +236,7 @@ func _spawn_enemy() -> void:
 	enemy.global_position = Vector2(x, y)
 
 func _on_enemy_destroyed(enemy: UfoEnemy) -> void:
+	active_enemies -= 1
 	_play_enemy_destroyed_sound(enemy)
 	_update_score(enemy.score_value)
 
