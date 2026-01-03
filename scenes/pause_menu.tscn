@@ -66,6 +66,7 @@ initial_focus_element = NodePath("../Foreground/MarginContainer/VBoxContainer/Bu
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("3_5d2l8")
+volume_db = -10.0
 
 [connection signal="pressed" from="Foreground/MarginContainer/VBoxContainer/ButtonsVBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="Foreground/MarginContainer/VBoxContainer/ButtonsVBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

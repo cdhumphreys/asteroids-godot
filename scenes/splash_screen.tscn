@@ -1,0 +1,119 @@
+[gd_scene load_steps=9 format=3 uid="uid://b8ct3dfbqjuwt"]
+
+[ext_resource type="Texture2D" uid="uid://wbu84e0p1mh8" path="res://assets/images/player_ships/ship_F.png" id="1_3mj2l"]
+[ext_resource type="Script" uid="uid://xuacr7s7w4ei" path="res://scenes/splash_screen.gd" id="1_vbcv6"]
+[ext_resource type="Theme" uid="uid://b0a0asfjws3sa" path="res://ui/theme.tres" id="2_4gp4q"]
+[ext_resource type="PackedScene" uid="uid://b344cqbdcqbhy" path="res://scenes/game.tscn" id="2_a2ut7"]
+[ext_resource type="Texture2D" uid="uid://mqwrqol11ngd" path="res://assets/images/stars/star_tiny.png" id="3_vbcv6"]
+[ext_resource type="Texture2D" uid="uid://pbetbki8xmhf" path="res://assets/images/stars/star_medium.png" id="4_a2ut7"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5osyx"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 360, 1)
+direction = Vector3(-1, 0, 0)
+spread = 10.0
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.099999994
+scale_max = 0.099999994
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dhol4"]
+lifetime_randomness = 0.25
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 360, 1)
+direction = Vector3(-1, 0, 0)
+spread = 25.0
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.099999994
+scale_max = 0.14999999
+
+[node name="SplashScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vbcv6")
+load_scene = ExtResource("2_a2ut7")
+start_pause_time_seconds = 1.0
+end_pause_time_seconds = 0.5
+apex_pause_time_seconds = 2.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.06666667, 0.06666667, 0.06666667, 1)
+
+[node name="Backgrounds" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Back" type="GPUParticles2D" parent="Backgrounds"]
+self_modulate = Color(0.5152081, 0.5152081, 0.5152081, 1)
+position = Vector2(1322, 360)
+amount = 500
+texture = ExtResource("3_vbcv6")
+lifetime = 300.0
+preprocess = 300.0
+process_material = SubResource("ParticleProcessMaterial_5osyx")
+
+[node name="Middle" type="GPUParticles2D" parent="Backgrounds"]
+self_modulate = Color(0.5890956, 0.5890956, 0.5890956, 1)
+position = Vector2(1322, 360)
+amount = 50
+texture = ExtResource("4_a2ut7")
+lifetime = 300.0
+preprocess = 300.0
+process_material = SubResource("ParticleProcessMaterial_dhol4")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 128)
+layout_mode = 2
+
+[node name="ShipSprite" type="TextureRect" parent="CenterContainer/VBoxContainer/Control"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+texture = ExtResource("1_3mj2l")
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+z_index = 1
+layout_mode = 2
+theme = ExtResource("2_4gp4q")
+theme_type_variation = &"HeaderLarge"
+text = "Asteroids"
+horizontal_alignment = 1
+vertical_alignment = 1
