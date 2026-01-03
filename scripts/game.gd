@@ -25,6 +25,14 @@ var active_asteroids: int = 0
 var active_enemies:int = 0
 var lives: int
 var active_save_game: SaveGame
+var difficulty_level: int = 0: set = _set_difficulty_level
+var time_elapsed:float = 0
+
+var current_max_asteroids: int
+var current_max_enemies: int
+
+var initial_asteroid_spawn_wait_time: float
+var initial_enemy_spawn_wait_time: float
 
 # ============================================================================
 # NODE REFERENCES - UI
@@ -36,6 +44,8 @@ var active_save_game: SaveGame
 @onready var death_screen: DeathScreen = %DeathScreen
 @onready var enter_name_menu: EnterNameMenu = %EnterNameMenu
 @onready var lives_counter: LivesCounter = %LivesCounter
+@onready var time_elapsed_label: Label = %TimeElapsedLabel
+@onready var difficulty_timer: Timer = %DifficultyTimer
 
 # ============================================================================
 # NODE REFERENCES - CONTAINERS
@@ -64,16 +74,29 @@ func _ready() -> void:
 	get_tree().paused = true
 	active_save_game = Utils.load_game()
 	
+	current_max_asteroids = MAX_ASTEROIDS
+	current_max_enemies = MAX_ENEMIES
+	
+	initial_asteroid_spawn_wait_time = asteroid_spawn_timer.wait_time
+	initial_enemy_spawn_wait_time = enemy_spawn_timer.wait_time
+
 	_connect_signals()
 	_initialize_ui()
+	
+func _process(delta: float):
+	if not get_tree().paused:
+		time_elapsed += delta
+		_update_time_label()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
 		if get_tree().paused:
 			get_tree().paused = false
+			
 			pause_menu.hide()
 		else:
 			get_tree().paused = true
+			
 			pause_menu.show()
 			pause_menu.on_show()
 
@@ -85,6 +108,7 @@ func _connect_signals() -> void:
 	EventBus.enemy_hit.connect(_on_enemy_destroyed)
 	enter_name_menu.on_name_submitted.connect(_on_user_enters_username)
 	enemy_spawn_timer.timeout.connect(_spawn_enemy)
+	difficulty_timer.timeout.connect(_increase_difficulty_level)
 	player.on_hit.connect(_on_player_hit)
 
 func _initialize_ui() -> void:
@@ -97,12 +121,15 @@ func _initialize_ui() -> void:
 func _new_game() -> void:
 	_reset()
 	asteroid_spawn_timer.start()
+	difficulty_timer.start()
 	get_tree().paused = false
 
 func _reset() -> void:
+	time_elapsed_label.show()
 	main_menu.hide()
 	death_screen.hide()
 	asteroid_spawn_timer.stop()
+	difficulty_timer.stop()
 	
 	_clear_all_entities()
 	_reset_game_state()
@@ -117,13 +144,27 @@ func _clear_all_entities() -> void:
 func _reset_game_state() -> void:
 	active_asteroids = 0
 	active_enemies = 0
+	current_max_asteroids = MAX_ASTEROIDS
+	current_max_enemies = MAX_ENEMIES
+	
 	score = 0
 	lives = MAX_LIVES
 	username = ""
+	time_elapsed = 0
+	difficulty_level = 0
+
+func _update_time_label():
+	var minutes := time_elapsed / 60
+	var seconds := fmod(time_elapsed, 60)
+	var milliseconds := fmod(time_elapsed, 1) * 100
+	var time_string := "%02d:%02d:%02d" % [minutes, seconds, milliseconds]
+	time_elapsed_label.text = time_string
 
 func _update_ui() -> void:
 	score_label.update_score(score)
 	lives_counter.display_lives(lives)
+	_update_time_label()
+	
 
 func _on_player_hit() -> void:
 	lives -= 1
@@ -159,11 +200,28 @@ func _handle_player_death() -> void:
 	death_screen.show()
 	death_screen.on_show()
 
+func _increase_difficulty_level():
+	print("increasing difficulty")
+	difficulty_level += 1
+
+func _set_difficulty_level(new_value: int):
+	if new_value != difficulty_level:
+		difficulty_level = new_value
+	
+	#increase max asteroids & enemies
+	current_max_asteroids = MAX_ASTEROIDS + difficulty_level
+	current_max_enemies = MAX_ENEMIES + difficulty_level
+
+	#decrease time to spawn enemies & asteroids
+	asteroid_spawn_timer.wait_time = max(initial_asteroid_spawn_wait_time - difficulty_level * 0.5, 2)
+	enemy_spawn_timer.wait_time = max(initial_enemy_spawn_wait_time - difficulty_level * 0.5, 3)
+	
+	
 # ============================================================================
 # ASTEROIDS
 # ============================================================================
 func _on_asteroid_spawn_timer_timeout() -> void:
-	if active_asteroids == MAX_ASTEROIDS:
+	if active_asteroids == current_max_asteroids:
 		return
 	
 	var asteroid: Asteroid = asteroid_scene.instantiate()
@@ -211,7 +269,7 @@ func _remove_asteroids() -> void:
 # ENEMIES
 # ============================================================================
 func _spawn_enemy() -> void:
-	if active_enemies >= MAX_ENEMIES:
+	if active_enemies >= current_max_enemies:
 		return
 	active_enemies += 1
 	
